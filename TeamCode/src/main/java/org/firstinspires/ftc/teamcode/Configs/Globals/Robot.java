@@ -48,7 +48,7 @@ public class Robot {
         windmillServo = hw.get(CRServo.class, "windmillServo");
         leftIntakeServo = hw.get(CRServo.class, "left_intake_servo");
         rightIntakeServo = hw.get(CRServo.class, "right_intake_servo");
-        //blablablablablasblablablalb
+
 
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
