@@ -24,16 +24,17 @@ public class Robot {
     public final Timer loop = new Timer();
     public double loops = 0, lastloop = 0, loopTime = 0;
 
-    // Non-drivetrain hardware
+    //hardware
     public final DcMotorEx launcher;
     public final DcMotor intake;
     public final CRServo leftIntakeServo;
     public final CRServo rightIntakeServo;
     public final CRServo windmillServo;
 
-    // Launcher velocity targets (ticks/sec)
     public static final int LAUNCHER_TARGET_VELOCITY = 1250; //2678 RPM
     public static final int LAUNCHER_MIN_VELOCITY = 1200; //2571 RPM
+
+
 
     public Robot(HardwareMap hw){
         follower = Constants.createFollower(hw);
@@ -41,6 +42,20 @@ public class Robot {
         for(LynxModule hub:hubs){
             hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
         }
+
+
+
+        /*
+         * Setting zeroPowerBehavior to BRAKE enables a "brake mode". This causes the motor to
+         * slow down much faster when it is coasting. This creates a much more controllable
+         * drivetrain. As the robot stops much quicker.
+         */
+        hw.get(DcMotor.class, "lf").setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hw.get(DcMotor.class, "rf").setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hw.get(DcMotor.class, "lr").setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hw.get(DcMotor.class, "rr").setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
 
         // ----- Non-drivetrain hardware init -----
         intake = hw.get(DcMotor.class, "intake");
@@ -60,7 +75,6 @@ public class Robot {
         windmillServo.setPower(0);
 
         rightIntakeServo.setDirection(DcMotorSimple.Direction.REVERSE);
-        windmillServo.setDirection(DcMotorSimple.Direction.REVERSE);
         // -----------------------------------------
 
         loop.reset();
