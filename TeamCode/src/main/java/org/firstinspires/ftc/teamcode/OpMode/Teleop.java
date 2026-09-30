@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
 //@Disabled
 public class Teleop extends OpMode {
     Robot robot;
-
+    ////as;lekfjh;laweifjahsef
 
     double intakePower;
     boolean motorOn = false;
