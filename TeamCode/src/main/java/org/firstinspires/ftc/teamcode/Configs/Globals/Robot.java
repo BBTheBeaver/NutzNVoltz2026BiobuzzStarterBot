@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.Configs.Globals;
 
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.pedropathing.follower.Follower;
 import com.pedropathing.utils.Timer;
 import com.qualcomm.hardware.lynx.LynxModule;
@@ -13,7 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
-import org.firstinspires.ftc.teamcode.pedro.Constants;
+import org.firstinspires.ftc.teamcode.pedro.PedroConstants;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -31,13 +29,11 @@ public class Robot {
     public final CRServo rightIntakeServo;
     public final CRServo windmillServo;
 
-    public static final int LAUNCHER_TARGET_VELOCITY = 1250; //2678 RPM
-    public static final int LAUNCHER_MIN_VELOCITY = 1200; //2571 RPM
 
 
 
     public Robot(HardwareMap hw){
-        follower = Constants.createFollower(hw);
+        follower = PedroConstants.createFollower(hw);
         hubs = hw.getAll(LynxModule.class);
         for(LynxModule hub:hubs){
             hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
