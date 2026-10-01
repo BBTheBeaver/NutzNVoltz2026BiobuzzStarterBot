@@ -12,7 +12,6 @@ import com.pedropathing.ivy.Scheduler;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.pedropathing.controllers.PIDController;
-import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
 
@@ -109,8 +108,7 @@ public class Teleop extends OpMode {
             double dy = goalPose[1] - robot.follower.pose().y();
             distanceToGoal = Math.hypot(dx, dy);
             headingError = normalizeAngle(Math.atan2(dy, dx) + Math.PI - robot.follower.pose().heading());
-            headingController.updateError(headingError);
-            turnPower = headingController.run();
+            turnPower = headingController.calculate(0, headingError);
         }else {
             turnPower = gamepad1.right_stick_x;
         }
