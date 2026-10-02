@@ -1,62 +1,68 @@
-package org.firstinspires.ftc.teamcode.Autos;
+package org.firstinspires.ftc.teamcode.autos;
 
+import com.pedropathing.ivy.Scheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
+import org.firstinspires.ftc.teamcode.autos.AutoRoutine;
+import org.firstinspires.ftc.teamcode.autos.SoloAuto;
+import org.firstinspires.ftc.teamcode.autos.FarAuto;
 
-@Autonomous(name = "Auto", group = "Autos")
+@Autonomous(name = "Main Auto", group = "Autos")
 public class Auto extends OpMode {
 
-    Robot robot;
-
-    int selectedAuto = 0;
-
-    final String[] autoNames = {
-            "Solo Auto",
-            "Blue Close",
-            "Blue Far",
-            "Red Close",
-            "Red Far"
+    private Robot robot;
+    private final AutoRoutine[] autos = {
+            new SoloAuto(),
+            new FarAuto()
+            // Add more autos here
     };
 
-    Object auto;
+    private int selectedIndex = 0;
+    private AutoRoutine selectedAuto;
+
+    private boolean upLast = false;
+    private boolean downLast = false;
 
     @Override
     public void init() {
         robot = new Robot(hardwareMap);
+        Scheduler.reset();
+        selectedAuto = autos[selectedIndex];
     }
 
     @Override
     public void init_loop() {
-
-        if (gamepad1.dpadDownWasPressed()) {
-            selectedAuto++;
-
-            if (selectedAuto >= autoNames.length) {
-                selectedAuto = 0;
-            }
+        // Select an auto with the D-pad
+        if (gamepad1.dpad_down && !downLast) {
+            selectedIndex = (selectedIndex + 1) % autos.length;
         }
 
-        if (gamepad1.dpadUpWasPressed()) {
-            selectedAuto--;
-
-            if (selectedAuto < 0) {
-                selectedAuto = autoNames.length - 1;
-            }
+        if (gamepad1.dpad_up && !upLast) {
+            selectedIndex = (selectedIndex - 1 + autos.length) % autos.length;
         }
 
-        telemetry.addData("Selected Auto", autoNames[selectedAuto]);
-        telemetry.addData("Controls", "D-Pad Up/Down = Select");
+        upLast = gamepad1.dpad_up;
+        downLast = gamepad1.dpad_down;
+
+        selectedAuto = autos[selectedIndex];
+
+        telemetry.addData("Selected Auto", selectedAuto.getClass().getSimpleName());
+        telemetry.addLine("D-pad up/down to select");
+        telemetry.addLine("Press START to run");
         telemetry.update();
     }
 
     @Override
     public void start() {
-
-
+        robot.follower.setPose(selectedAuto.getStartPose());
+        Scheduler.schedule(selectedAuto.build(robot));
+    }
 
     @Override
-    public void stop() {
+    public void loop() {
+        robot.periodic();
+        Scheduler.execute();
     }
 }

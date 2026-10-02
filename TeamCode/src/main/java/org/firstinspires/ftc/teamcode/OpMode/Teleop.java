@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.GOAL_POSE
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.INTAKE_FORWARD;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.INTAKE_REVERSE;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.LAUNCHER_TARGET_VELOCITY;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.OTHERSIDE;
 
 import com.pedropathing.drivetrain.DrivePowers;
 import com.pedropathing.follower.ManualDrive;
@@ -22,6 +23,7 @@ import java.util.Objects;
 public class Teleop extends OpMode {
     Robot robot;
 
+    boolean otherSide = false;
     double headingError   = 0;
     double distanceToGoal = 0;
     boolean  headingLock    = false;
@@ -30,7 +32,6 @@ public class Teleop extends OpMode {
     private final PIDController headingController =
             new PIDController(0.8, 0.0, 0.04);
 
-    boolean motorOn = false;
     boolean intakeOn = false;
     boolean reverseOn = false;
 
@@ -50,6 +51,8 @@ public class Teleop extends OpMode {
         robot = new Robot(hardwareMap);
         Scheduler.reset();
         telemetry.addData("Status", "Initialized");
+        //Driver 1: Intake, Heading lock, Drive
+        //Driver 2: Shoot
     }
 
     @Override
@@ -75,6 +78,7 @@ public class Teleop extends OpMode {
         } else {
             goalPose = GOAL_POSE_RED;
         }
+
     }
 
     @Override
@@ -82,30 +86,27 @@ public class Teleop extends OpMode {
         robot.periodic();
         Scheduler.execute(); // runs anything scheduled — nothing's scheduled yet, but it's plugged in and ready
 
+        robot.launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
 
-        // Intake toggle
-        if (gamepad1.leftBumperWasPressed()) {
-            intakeOn = !intakeOn;
-            if (intakeOn) {
-                reverseOn = false;
-            }
-        }
-        // Reverse toggle
-        if (gamepad1.leftTriggerWasPressed()) {
-            reverseOn = !reverseOn;
-            if (reverseOn) {
-                intakeOn = false;
-            }
-        }
 
-        // ── X — toggle heading lock ──────────────────────────────────────
-        if (gamepad1.xWasPressed()) {
+        if (gamepad1.rightTriggerWasPressed()){
+            otherSide = !otherSide;
+        }
+        // ── RightBumper — toggle heading lock ──────────────────────────────────────
+        if (gamepad1.rightBumperWasPressed()) {
             headingLock = !headingLock;
         }
         double turnPower;
         if(headingLock) {
-            double dx = goalPose[0] - robot.follower.pose().x();
-            double dy = goalPose[1] - robot.follower.pose().y();
+            double dx;
+            double dy;
+            if (otherSide){
+                dx = goalPose[0] - robot.follower.pose().x();
+                dy = goalPose[1] - OTHERSIDE  - robot.follower.pose().y();
+            }else{
+                dx = goalPose[0] - robot.follower.pose().x();
+                dy = goalPose[1] - robot.follower.pose().y();
+            }
             distanceToGoal = Math.hypot(dx, dy);
             headingError = normalizeAngle(Math.atan2(dy, dx) + Math.PI - robot.follower.pose().heading());
             turnPower = headingController.calculate(0, headingError);
@@ -124,6 +125,21 @@ public class Teleop extends OpMode {
         robot.follower.manual(powers);
 
 
+        // Intake toggle
+        if (gamepad1.leftBumperWasPressed()) {
+            intakeOn = !intakeOn;
+            if (intakeOn) {
+                reverseOn = false;
+            }
+        }
+        // Reverse toggle
+        if (gamepad1.leftTriggerWasPressed()) {
+            reverseOn = !reverseOn;
+            if (reverseOn) {
+                intakeOn = false;
+            }
+        }
+
         if (intakeOn) {
             robot.intake.setPower(INTAKE_FORWARD);
             robot.leftIntakeServo.setPower(INTAKE_FORWARD);
@@ -140,19 +156,7 @@ public class Teleop extends OpMode {
 
 
 
-
-        // Launcher controls
         if (gamepad1.yWasPressed()) {
-            motorOn = !motorOn;
-        }
-
-        if(motorOn) {
-            robot.launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
-        } else {
-            robot.launcher.setVelocity(0);
-        }
-
-        if (gamepad1.right_bumper) {
             robot.windmillServo.setPower(1);
             robot.intake.setPower(INTAKE_FORWARD);
         } else {

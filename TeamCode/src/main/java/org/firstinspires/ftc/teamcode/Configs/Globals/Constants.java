@@ -12,4 +12,6 @@ public class Constants {
     public static double[] GOAL_POSE_BLUE = {84.0,  95.0};//-50 For the other side
     public static double[] GOAL_POSE_RED  = {58.0, 47.0};//-50 for the other side
 
+    public static double OTHERSIDE;
+
 }
