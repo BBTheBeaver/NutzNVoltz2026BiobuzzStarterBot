@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autos;
+package org.firstinspires.ftc.teamcode.Configs.Autos;
 
 import static com.pedropathing.api.Paths.*;
 import static com.pedropathing.ivy.groups.Groups.sequential;
@@ -10,7 +10,7 @@ import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
 
 import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
-import org.firstinspires.ftc.teamcode.autos.AutoRoutine;
+import org.firstinspires.ftc.teamcode.Configs.Autos.AutoRoutine;
 public class FarAuto implements AutoRoutine{
     @Override
     public Pose getStartPose() {

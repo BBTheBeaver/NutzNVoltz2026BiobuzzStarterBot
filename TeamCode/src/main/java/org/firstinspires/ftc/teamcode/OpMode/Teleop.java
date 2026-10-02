@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.OpMode;
 
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.GOAL_POSE_BLUE;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.GOAL_POSE_RED;

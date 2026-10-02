@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.subsystems;
+package org.firstinspires.ftc.teamcode.Configs.CommandBase.SubSystems;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.Configs.Globals.Constants.*;
-import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.*;
 
 public class Flywheel {
 

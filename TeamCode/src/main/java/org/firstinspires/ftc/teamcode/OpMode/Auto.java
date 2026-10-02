@@ -1,13 +1,12 @@
-package org.firstinspires.ftc.teamcode.autos;
-
+package org.firstinspires.ftc.teamcode.OpMode;
 import com.pedropathing.ivy.Scheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
-import org.firstinspires.ftc.teamcode.autos.AutoRoutine;
-import org.firstinspires.ftc.teamcode.autos.SoloAuto;
-import org.firstinspires.ftc.teamcode.autos.FarAuto;
+import org.firstinspires.ftc.teamcode.Configs.Autos.AutoRoutine;
+import org.firstinspires.ftc.teamcode.Configs.Autos.SoloAuto;
+import org.firstinspires.ftc.teamcode.Configs.Autos.FarAuto;
 
 @Autonomous(name = "Main Auto", group = "Autos")
 public class Auto extends OpMode {

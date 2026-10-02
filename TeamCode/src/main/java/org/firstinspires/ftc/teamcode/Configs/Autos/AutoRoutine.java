@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autos;
+package org.firstinspires.ftc.teamcode.Configs.Autos;
 
 import com.pedropathing.ivy.Command;
 import com.pedropathing.math.Pose;
