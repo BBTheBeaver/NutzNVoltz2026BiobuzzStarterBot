@@ -18,8 +18,13 @@ public class Shoot {
                 instant(() -> {
                     robot.windmillServo.setPower(1);
                     robot.intake.setPower(INTAKE_FORWARD);
-                    robot.leftIntakeServo.setPower(INTAKE_FORWARD);
-                    robot.rightIntakeServo.setPower(INTAKE_FORWARD);
+                }),
+
+                waitMs(2000),
+
+                instant(() -> {
+                    robot.windmillServo.setPower(0);
+                    robot.intake.setPower(0);
                 })
         );
     }

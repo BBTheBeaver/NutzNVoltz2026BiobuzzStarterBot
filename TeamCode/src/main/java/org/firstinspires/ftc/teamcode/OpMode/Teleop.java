@@ -1,11 +1,6 @@
 package org.firstinspires.ftc.teamcode.OpMode;
-
-import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.GOAL_POSE_BLUE;
-import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.GOAL_POSE_RED;
-import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.INTAKE_FORWARD;
-import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.INTAKE_REVERSE;
-import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.LAUNCHER_TARGET_VELOCITY;
-import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.OTHERSIDE;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.*;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.*;
 
 import com.pedropathing.drivetrain.DrivePowers;
 import com.pedropathing.follower.ManualDrive;
@@ -50,6 +45,7 @@ public class Teleop extends OpMode {
     public void init() {
         robot = new Robot(hardwareMap);
         Scheduler.reset();
+        robot.follower.setPose(Start);
         telemetry.addData("Status", "Initialized");
         //Driver 1: Intake, Heading lock, Drive
         //Driver 2: Shoot
