@@ -9,6 +9,8 @@ import com.pedropathing.ivy.Command;
 import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
 
+import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.SpinFlywheel;
+import org.firstinspires.ftc.teamcode.Configs.CommandBase.SubSystems.Flywheel;
 import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
 import org.firstinspires.ftc.teamcode.Configs.Autos.AutoRoutine;
 public class SoloAuto implements AutoRoutine {
@@ -20,7 +22,10 @@ public class SoloAuto implements AutoRoutine {
 
     @Override
     public Command build(Robot robot) {
+        Flywheel flywheel = new Flywheel(robot.launcher);
+
         return sequential(
+                SpinFlywheel.create(flywheel, robot),
                 follow(robot.follower, INTAKE()),
                 follow(robot.follower, SHOOT()),
                 follow(robot.follower, FLOWERSHOOT()),
