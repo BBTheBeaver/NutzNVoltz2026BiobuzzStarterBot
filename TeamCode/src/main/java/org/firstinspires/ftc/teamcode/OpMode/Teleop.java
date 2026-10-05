@@ -1,186 +1,172 @@
-    package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.OpMode;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.*;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.*;
 
-    import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
+import com.pedropathing.drivetrain.DrivePowers;
+import com.pedropathing.follower.ManualDrive;
+import com.pedropathing.ivy.Scheduler;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.pedropathing.controllers.PIDController;
 
-    import static org.firstinspires.ftc.teamcode.Configs.Globals.Robot.LAUNCHER_MIN_VELOCITY;
-    import static org.firstinspires.ftc.teamcode.Configs.Globals.Robot.LAUNCHER_TARGET_VELOCITY;
+import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
 
-    import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-    import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-    import com.qualcomm.robotcore.hardware.DcMotor;
+import java.util.Objects;
 
+@TeleOp(name = "Teleop", group = "StarterBot")
+//@Disabled
+public class Teleop extends OpMode {
+    Robot robot;
 
-    import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
+    boolean otherSide = false;
+    double headingError   = 0;
+    double distanceToGoal = 0;
+    boolean  headingLock    = false;
+    double[] goalPose = GOAL_POSE_BLUE;
 
+    private final PIDController headingController =
+            new PIDController(0.8, 0.0, 0.04);
 
-    @TeleOp(name = "Teleop", group = "StarterBot")
-    //@Disabled
-    public class Teleop extends OpMode {
-
-
-
-        /*
-         * These four variables store the power we need to apply to the motors. In other cases, we may
-         * choose to declare these variables inside the mecanumDrive() function, instead we declare them
-         * here so that we can access them in our main loop for telemetry.
-         */
-        // Declare OpMode members.
-        private DcMotor leftFrontDrive = null;
-        private DcMotor leftBackDrive = null;
-        private DcMotor rightFrontDrive = null;
-        private DcMotor rightBackDrive = null;
-
-        double leftFrontPower;
-        double rightFrontPower;
-        double leftBackPower;
-        double rightBackPower;
-        double intakePower;
+    boolean intakeOn = false;
+    boolean reverseOn = false;
 
 
-        Robot robot;
 
-        /*
-         * Code to run ONCE when the driver hits INIT
-         */
-        @Override
-        public void init() {
-            robot = new Robot(hardwareMap);
+    final String[] options = {"Blue", "Red"};
+    int selectedOption = 0;
+    boolean upLast = false;
+    boolean downLast = false;
 
-            // Initialize drive motors
-            leftFrontDrive = hardwareMap.get(DcMotor.class, "lf");
-            rightFrontDrive = hardwareMap.get(DcMotor.class, "rf");
-            leftBackDrive = hardwareMap.get(DcMotor.class, "lr");
-            rightBackDrive = hardwareMap.get(DcMotor.class, "rr");
 
-            telemetry.addData("Status", "Initialized");
-        }
 
-        /*
-         * Code to run REPEATEDLY after the driver hits INIT, but before they hit START
-         */
-        @Override
-        public void init_loop() {
-        }
 
-        /*
-         * Code to run ONCE when the driver hits START
-         */
-        @Override
-        public void start() {
-        }
 
-        /*
-         * Code to run REPEATEDLY after the driver hits START but before they hit STOP
-         */
-        @Override
-        public void loop() {
-            /*
-             * Here we call a function called mecanumDrive. The mecanumDrive function takes the input from
-             * the joysticks, and applies power to the drive motors to move the robot as requested
-             * by the driver. Moving the left joystick forwards/back moves all motors forwards/back,
-             * moving the right joystick left/right rotates the robot clockwise or counterclockwise,
-             * and moving the left joystick left moves the motors in the right way to create a sideways
-             * "strafe" movement. Combinations of these inputs can be used to create more complex maneuvers.
-             * Note, moving the joystick forward on most gamepads results in a negative signal, so
-             * we invert it before passing it to the function.
-             */
-            mecanumDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
-
-            /*
-             * Set the intake power variable to equal the right trigger, minus the left trigger.
-             * Each trigger outputs a signal from 0-1, with 0 as fully released, and 1 fully depressed.
-             * This gives us proportional control of the intake speed. The speed increases as we pull
-             * the right trigger further. It's occasionally helpful to be able to reverse the intake,
-             * so we also factor in the left trigger. If the left trigger is fully depressed,
-             * the intakePower variable will be -1. If the right trigger is fully depressed, the variable
-             * will be 1. If the driver pulls both triggers, the intake will remain off.
-             * We use this technique (creating a variable, and setting it to our control inputs) to
-             * allow us to avoid setting the same motors/servos power more than once per loop. That can
-             * create erratic behavior.
-             */
-            intakePower = gamepad1.right_trigger - gamepad1.left_trigger;
-
-            launch();
-
-            /*
-             * Here we set our intake motor and servos to their intake power. The order of operations
-             * here is important though. The gamepad triggers define the starting point for the intake
-             * power variable in each loop of our code, but inside our launch function we also sometimes
-             * change the intake power. So we need to give our launch function a chance to modify the
-             * variable before we write it to our motor and servos.
-             */
-
-            robot.intake.setPower(intakePower);
-            robot.leftIntakeServo.setPower(intakePower);
-            robot.rightIntakeServo.setPower(intakePower);
-
-            /*
-             * Show motor powers on the Driver Station via telemetry.
-             */
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftFrontPower, rightFrontPower);
-            telemetry.addData("Triggers", "left (%.2f, right (%.2f)",gamepad1.left_trigger, gamepad1.right_trigger);
-        }
-
-        /*
-         * Code to run ONCE after the driver hits STOP
-         */
-        @Override
-        public void stop() {
-        }
-
-        void mecanumDrive(double forward, double strafe, double rotate) {
-            leftFrontPower = forward + strafe + rotate;
-            rightFrontPower = forward - strafe - rotate;
-            leftBackPower = forward - strafe + rotate;
-            rightBackPower = forward + strafe - rotate;
-
-            double max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
-            max = Math.max(max, Math.abs(leftBackPower));
-            max = Math.max(max, Math.abs(rightBackPower));
-
-            if (max > 1.0) {
-                leftFrontPower /= max;
-                rightFrontPower /= max;
-                leftBackPower /= max;
-                rightBackPower /= max;
-            }
-
-            /*
-             * Send calculated power to wheels
-             */
-            leftFrontDrive.setPower(leftFrontPower);
-            rightFrontDrive.setPower(rightFrontPower);
-            leftBackDrive.setPower(leftBackPower);
-            rightBackDrive.setPower(rightBackPower);
-        }
-
-        void launch() {
-            /*
-             * Calling gamepad1.right_bumper returns a boolean which will be true if the bumper is
-             * held down, and false if it is not. Notably, this will continue to be true for every
-             * cycle of our code that the driver holds down that bumper.
-             * The first step of our launch() function is checking to see if the user is currently
-             * holding down the right gamepad. If they are, then we want to start spinning up the launcher.
-             * Otherwise, we start spinning the launcher down.
-             */
-            if (gamepad1.right_bumper) {
-                robot.launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
-            } else {
-                robot.launcher.setVelocity(0);
-            }
-
-            /*
-             * Here we ask if the driver is currently pressing the right bumper, AND the launcher is
-             * spinning fast enough to make a successful shot. If it is, then we will turn on the
-             * windmill servo to start feeding the elements into the launcher motor. We also
-             * add some power to the intake power. This can sometimes help dislodge stuck elements from
-             * inside the hopper.
-             */
-            if (gamepad1.right_bumper && robot.launcher.getVelocity() > LAUNCHER_MIN_VELOCITY) {
-                robot.windmillServo.setPower(1);
-                intakePower += 0.5;
-            } else {
-                robot.windmillServo.setPower(0);
-            }
-        }
+    @Override
+    public void init() {
+        robot = new Robot(hardwareMap);
+        Scheduler.reset();
+        robot.follower.setPose(Start);
+        telemetry.addData("Status", "Initialized");
+        //Driver 1: Intake, Heading lock, Drive
+        //Driver 2: Shoot
     }
+
+    @Override
+    public void init_loop() {
+        if (gamepad1.dpad_down && !downLast) selectedOption = (selectedOption + 1) % options.length;
+        if (gamepad1.dpad_up   && !upLast)   selectedOption = (selectedOption - 1 + options.length) % options.length;
+        upLast   = gamepad1.dpad_up;
+        downLast = gamepad1.dpad_down;
+
+        telemetry.addLine("=== ALLIANCE SELECT ===");
+        for (int i = 0; i < options.length; i++) {
+            telemetry.addData(i == selectedOption ? "> " : "  ", options[i]);
+        }
+        telemetry.addLine("DPAD up/down to switch, Start to begin");
+        telemetry.update();
+    }
+
+    @Override
+    public void start() {
+        boolean isBlue = Objects.equals(options[selectedOption], "Blue");
+        if (isBlue) {
+            goalPose = GOAL_POSE_BLUE;
+        } else {
+            goalPose = GOAL_POSE_RED;
+        }
+
+    }
+
+    @Override
+    public void loop() {
+        robot.periodic();
+        Scheduler.execute(); // runs anything scheduled — nothing's scheduled yet, but it's plugged in and ready
+
+        robot.launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
+
+
+        if (gamepad1.rightTriggerWasPressed()){
+            otherSide = !otherSide;
+        }
+        // ── RightBumper — toggle heading lock ──────────────────────────────────────
+        if (gamepad1.rightBumperWasPressed()) {
+            headingLock = !headingLock;
+        }
+        double turnPower;
+        if(headingLock) {
+            double dx;
+            double dy;
+            if (otherSide){
+                dx = goalPose[0] - robot.follower.pose().x();
+                dy = goalPose[1] - OTHERSIDE  - robot.follower.pose().y();
+            }else{
+                dx = goalPose[0] - robot.follower.pose().x();
+                dy = goalPose[1] - robot.follower.pose().y();
+            }
+            distanceToGoal = Math.hypot(dx, dy);
+            headingError = normalizeAngle(Math.atan2(dy, dx) + Math.PI - robot.follower.pose().heading());
+            turnPower = headingController.calculate(0, headingError);
+        }else {
+            turnPower = gamepad1.right_stick_x;
+        }
+
+        // Field-centric drive
+        DrivePowers powers = ManualDrive.fieldCentric(
+                -gamepad1.left_stick_y,
+                gamepad1.left_stick_x,
+                turnPower,
+                robot.follower.pose().heading()
+        );
+
+        robot.follower.manual(powers);
+
+
+        // Intake toggle
+        if (gamepad1.leftBumperWasPressed()) {
+            intakeOn = !intakeOn;
+            if (intakeOn) {
+                reverseOn = false;
+            }
+        }
+        // Reverse toggle
+        if (gamepad1.leftTriggerWasPressed()) {
+            reverseOn = !reverseOn;
+            if (reverseOn) {
+                intakeOn = false;
+            }
+        }
+
+        if (intakeOn) {
+            robot.intake.setPower(INTAKE_FORWARD);
+            robot.leftIntakeServo.setPower(INTAKE_FORWARD);
+            robot.rightIntakeServo.setPower(INTAKE_FORWARD);
+        } else if (reverseOn) {
+            robot.intake.setPower(INTAKE_REVERSE);
+            robot.leftIntakeServo.setPower(INTAKE_REVERSE);
+            robot.rightIntakeServo.setPower(INTAKE_REVERSE);
+        } else {
+            robot.intake.setPower(0);
+            robot.leftIntakeServo.setPower(0);
+            robot.rightIntakeServo.setPower(0);
+        }
+
+
+
+        if (gamepad1.yWasPressed()) {
+            robot.windmillServo.setPower(1);
+            robot.intake.setPower(INTAKE_FORWARD);
+        } else {
+            robot.windmillServo.setPower(0);
+        }
+
+        // Telemetry
+        telemetry.addData("Triggers", "left (%.2f), right (%.2f)", gamepad1.left_trigger, gamepad1.right_trigger);
+        telemetry.addData("Heading", "%.1f°", Math.toDegrees(robot.follower.pose().heading()));
+        telemetry.addData("Loop Hz", robot.getLoopTimeHz());
+        telemetry.update();
+    }
+
+    private static double normalizeAngle(double angle) {
+        return Math.atan2(Math.sin(angle), Math.cos(angle));
+    }
+}
