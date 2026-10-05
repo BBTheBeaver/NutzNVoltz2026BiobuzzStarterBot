@@ -46,7 +46,7 @@ public class Robot {
         intake = hw.get(DcMotor.class, "intake");
         launcher = hw.get(DcMotorEx.class, "launcher");
         windmillServo = hw.get(CRServo.class, "windmillServo");
-        leftIntakeServo = hw.get(CRServo.class, "left_intake_servo");
+        leftIntakeServo = hw.get(CRServo.class, "left_in t`ake_servo");
         rightIntakeServo = hw.get(CRServo.class, "right_intake_servo");
 
 

@@ -11,9 +11,9 @@ public class Poses {
     private final Pose SOLO_START = poseFactory.of(56.6, 9, 270);
 
     //-----Solo sequences--------------------------------------------------------
-    private final Pose point1 = poseFactory.of(9, 9, 180);
-    private final Pose point1Control1 = poseFactory.of(40.8476, 17.6552, 0);
-    private final Pose point2 = poseFactory.of(59.9528, 125.3071, 90);
+    private final Pose SOLO_PICKUP = poseFactory.of(9, 9, 180);
+    private final Pose SOLO_PICKUPCURVE = poseFactory.of(40.8476, 17.6552, 0);
+        private final Pose point2 = poseFactory.of(59.9528, 125.3071, 90);
     private final Pose point2Control1 = poseFactory.of(18.7784, 78.2913, 0);
     private final Pose point3 = poseFactory.of(50.1925, 129.9114, 90);
     private final Pose point3Control1 = poseFactory.of(54.6604, 124.4476, 0);
