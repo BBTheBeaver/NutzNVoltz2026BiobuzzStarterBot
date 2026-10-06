@@ -113,7 +113,7 @@ public class Teleop extends OpMode {
         // Field-centric drive
         DrivePowers powers = ManualDrive.fieldCentric(
                 -gamepad1.left_stick_y,
-                gamepad1.left_stick_x,
+                -gamepad1.left_stick_x,
                 turnPower,
                 robot.follower.pose().heading()
         );
