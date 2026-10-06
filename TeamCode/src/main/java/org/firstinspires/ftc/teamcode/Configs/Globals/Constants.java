@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.Configs.Globals;
 
 public class Constants {
-    public static final int LAUNCHER_TARGET_VELOCITY = 1250; //2678 RPM
-    public static final int LAUNCHER_MIN_VELOCITY = 1200; //2571 RPM
+    public static final int LAUNCHER_TARGET_VELOCITY = 1150; //2678 RPM
+    public static final int LAUNCHER_MIN_VELOCITY = 1100; //2571 RPM
 
     public static final double INTAKE_FORWARD = 1.0;
     public static final double INTAKE_REVERSE = -0.5;

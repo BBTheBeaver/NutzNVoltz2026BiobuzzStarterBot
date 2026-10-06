@@ -113,7 +113,7 @@ public class Teleop extends OpMode {
         // Field-centric drive
         DrivePowers powers = ManualDrive.fieldCentric(
                 -gamepad1.left_stick_y,
-                gamepad1.left_stick_x,
+                -gamepad1.left_stick_x,
                 turnPower,
                 robot.follower.pose().heading()
         );
@@ -152,7 +152,7 @@ public class Teleop extends OpMode {
 
 
 
-        if (gamepad1.yWasPressed()) {
+        if (gamepad1.y) {
             robot.windmillServo.setPower(1);
             robot.intake.setPower(INTAKE_FORWARD);
         } else {
