@@ -25,7 +25,7 @@ public class Teleop extends OpMode {
     double[] goalPose = GOAL_POSE_BLUE;
 
     private final PIDController headingController =
-            new PIDController(0.8, 0.0, 0.04);
+            new PIDController(2.5, 0.0, 0.1);
 
     boolean intakeOn = false;
     boolean reverseOn = false;
@@ -96,6 +96,7 @@ public class Teleop extends OpMode {
         if(headingLock) {
             double dx;
             double dy;
+
             if (otherSide){
                 dx = goalPose[0] - robot.follower.pose().x();
                 dy = goalPose[1] - OTHERSIDE  - robot.follower.pose().y();
@@ -103,9 +104,14 @@ public class Teleop extends OpMode {
                 dx = goalPose[0] - robot.follower.pose().x();
                 dy = goalPose[1] - robot.follower.pose().y();
             }
+            double kV = -0.75; // start here, tune sign/magnitude by watching behavior while strafing
+            double denom = dx * dx + dy * dy;
+            double headingVelFF = denom > 1e-6
+                    ? (dx * robot.follower.velocity().vy - dy * robot.follower.velocity().vx) / denom
+                    : 0;
             distanceToGoal = Math.hypot(dx, dy);
             headingError = normalizeAngle(Math.atan2(dy, dx) + Math.PI - robot.follower.pose().heading());
-            turnPower = headingController.calculate(0, headingError);
+            turnPower = headingController.calculate(0, headingError) + kV * headingVelFF;
         }else {
             turnPower = gamepad1.right_stick_x;
         }
