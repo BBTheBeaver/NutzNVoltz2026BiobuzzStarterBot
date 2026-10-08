@@ -98,7 +98,7 @@ public class Teleop extends OpMode {
             double dy;
             if (otherSide){
                 dx = goalPose[0] - robot.follower.pose().x();
-                dy = goalPose[1] - OTHERSIDE  - robot.follower.pose().y();
+                dy = goalPose[1] - OTHERSIDE - robot.follower.pose().y();
             }else{
                 dx = goalPose[0] - robot.follower.pose().x();
                 dy = goalPose[1] - robot.follower.pose().y();
@@ -107,7 +107,7 @@ public class Teleop extends OpMode {
             headingError = normalizeAngle(Math.atan2(dy, dx) + Math.PI - robot.follower.pose().heading());
             turnPower = headingController.calculate(0, headingError);
         }else {
-            turnPower = gamepad1.right_stick_x;
+            turnPower = -gamepad1.right_stick_x;
         }
 
         // Field-centric drive
@@ -142,6 +142,7 @@ public class Teleop extends OpMode {
             robot.rightIntakeServo.setPower(INTAKE_FORWARD);
         } else if (reverseOn) {
             robot.intake.setPower(INTAKE_REVERSE);
+            robot.windmillServo.setPower(INTAKE_REVERSE);
             robot.leftIntakeServo.setPower(INTAKE_REVERSE);
             robot.rightIntakeServo.setPower(INTAKE_REVERSE);
         } else {

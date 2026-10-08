@@ -70,7 +70,8 @@ public class Robot {
         rightIntakeServo.setPower(0);
         windmillServo.setPower(0);
 
-        rightIntakeServo.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightIntakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftIntakeServo.setDirection(DcMotorSimple.Direction.REVERSE);
         // -----------------------------------------
 
         loop.reset();

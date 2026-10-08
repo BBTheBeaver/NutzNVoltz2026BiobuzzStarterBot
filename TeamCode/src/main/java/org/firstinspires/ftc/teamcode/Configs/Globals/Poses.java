@@ -8,7 +8,7 @@ public class Poses {
     private static final PoseFactory poseFactory = PoseFactory.degrees();
 
     //Test start for heading lock
-    public static final Pose Start = poseFactory.of(0, 0, 0);
+    public static final Pose Start = poseFactory.of(133, 8, 90);
 
     // Solo sequence start
     public static final Pose SOLO_START = poseFactory.of(56.6, 9, 270);
