@@ -45,7 +45,6 @@ public class Teleop extends OpMode {
     public void init() {
         robot = new Robot(hardwareMap);
         Scheduler.reset();
-        robot.follower.setPose(Start);
         telemetry.addData("Status", "Initialized");
         //Driver 1: Intake, Heading lock, Drive
         //Driver 2: Shoot
@@ -71,8 +70,10 @@ public class Teleop extends OpMode {
         boolean isBlue = Objects.equals(options[selectedOption], "Blue");
         if (isBlue) {
             goalPose = GOAL_POSE_BLUE;
+            robot.follower.setPose(BLUE_START);
         } else {
             goalPose = GOAL_POSE_RED;
+            robot.follower.setPose(RED_START);
         }
 
     }
@@ -111,7 +112,12 @@ public class Teleop extends OpMode {
                     : 0;
             distanceToGoal = Math.hypot(dx, dy);
             headingError = normalizeAngle(Math.atan2(dy, dx) + Math.PI - robot.follower.pose().heading());
-            turnPower = headingController.calculate(0, headingError) + kV * headingVelFF;
+            headingError = normalizeAngle(Math.atan2(dy, dx) + Math.PI - robot.follower.pose().heading());
+            if (Math.abs(headingError) < Math.toRadians(1)) {
+                turnPower = 0;
+            } else {
+                turnPower = headingController.calculate(0, headingError) + kV * headingVelFF;
+            }
         }else {
             turnPower = gamepad1.right_stick_x;
         }
