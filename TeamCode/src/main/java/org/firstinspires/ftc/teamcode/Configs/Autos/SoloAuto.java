@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode.Configs.Autos;
 
 import static com.pedropathing.api.Paths.*;
-import static com.pedropathing.ivy.commands.Commands.instant;
-import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.groups.Groups.deadline;
 import static com.pedropathing.ivy.groups.Groups.parallel;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.*;
 
+import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
@@ -22,10 +21,23 @@ import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
 
 public class SoloAuto implements AutoRoutine {
 
+    private final PoseFactory mirroredFactory = PoseFactory.radians().mirrorX(70.75).mirrorY(70.75);
+    private final boolean blue;
+    public SoloAuto(boolean blue) {
+        this.blue = blue;
+    }
+    private Pose m(Pose pose) {
+        if (blue) {
+            return mirroredFactory.of(pose.x(), pose.y(), pose.heading());
+        }
+        return pose;
+    }
+
     @Override
     public Pose getStartPose() {
-        return SOLO_START;
+        return m(SOLO_START);
     }
+
 
     @Override
     public Command build(Robot robot) {
@@ -66,30 +78,30 @@ public class SoloAuto implements AutoRoutine {
     }
 
     private Path INTAKE() {
-        return curve(SOLO_INTAKE_START, SOLO_INTAKECURVE, SOLO_INTAKE).linear(SOLO_INTAKE_START, SOLO_INTAKE);
+        return curve(m(SOLO_INTAKE_START), m(SOLO_INTAKECURVE), m(SOLO_INTAKE)).linear(m(SOLO_INTAKE_START), m(SOLO_INTAKE));
     }
 
     private Path SHOOT() {
-        return curve(SOLO_INTAKE, SOLO_SHOOTCURVE, SOLO_SHOOT).linear(SOLO_INTAKE, SOLO_SHOOT);
+        return curve(m(SOLO_INTAKE), m(SOLO_SHOOTCURVE), m(SOLO_SHOOT)).linear(m(SOLO_INTAKE), m(SOLO_SHOOT));
     }
 
     private Path FLOWER() {
-        return curve(SOLO_SHOOT, SOLO_FLOWERCURVE, SOLO_FLOWER).linear(SOLO_SHOOT, SOLO_FLOWER);
+        return curve(m(SOLO_SHOOT), m(SOLO_FLOWERCURVE), m(SOLO_FLOWER)).linear(m(SOLO_SHOOT), m(SOLO_FLOWER));
     }
 
     private Path SHOOT2() {
-        return curve(SOLO_SHOOT, SOLO_SHOOT2CURVE, SOLO_SHOOT2).linear(SOLO_FLOWER, SOLO_SHOOT2);
+        return curve(m(SOLO_SHOOT), m(SOLO_SHOOT2CURVE), m(SOLO_SHOOT2)).linear(m(SOLO_FLOWER), m(SOLO_SHOOT2));
     }
 
     private Path FLOWER2() {
-        return curve(SOLO_SHOOT2, SOLO_FLOWER2CURVE1, SOLO_FLOWER2CURVE2, SOLO_FLOWER2).linear(SOLO_SHOOT2, SOLO_FLOWER2);
+        return curve(m(SOLO_SHOOT2), m(SOLO_FLOWER2CURVE1), m(SOLO_FLOWER2CURVE2), m(SOLO_FLOWER2)).linear(m(SOLO_SHOOT2), m(SOLO_FLOWER2));
     }
 
     private Path SHOOT3() {
-        return line(SOLO_FLOWER2, SOLO_SHOOT3).linear(SOLO_FLOWER2, SOLO_SHOOT3);
+        return line(m(SOLO_FLOWER2), m(SOLO_SHOOT3)).linear(m(SOLO_FLOWER2), m(SOLO_SHOOT3));
     }
 
     private Path PARK() {
-        return line(SOLO_SHOOT3, SOLO_PARK).linear(SOLO_SHOOT3, SOLO_PARK);
+        return line(m(SOLO_SHOOT3), m(SOLO_PARK)).linear(m(SOLO_SHOOT3), m(SOLO_PARK));
     }
 }
