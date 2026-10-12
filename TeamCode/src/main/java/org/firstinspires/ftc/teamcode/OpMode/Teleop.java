@@ -25,7 +25,7 @@ public class Teleop extends OpMode {
     double[] goalPose = GOAL_POSE_BLUE;
 
     private final PIDController headingController =
-            new PIDController(2, 0.0, 0.1);
+            new PIDController(2.5, 0.0, 0.1);
 
     boolean intakeOn = false;
     boolean reverseOn = false;
@@ -45,7 +45,6 @@ public class Teleop extends OpMode {
     public void init() {
         robot = new Robot(hardwareMap);
         Scheduler.reset();
-        robot.follower.setPose(Start);
         telemetry.addData("Status", "Initialized");
         //Driver 1: Intake, Heading lock, Drive
         //Driver 2: Shoot
@@ -71,8 +70,10 @@ public class Teleop extends OpMode {
         boolean isBlue = Objects.equals(options[selectedOption], "Blue");
         if (isBlue) {
             goalPose = GOAL_POSE_BLUE;
+            robot.follower.setPose(BLUE_START);
         } else {
             goalPose = GOAL_POSE_RED;
+            robot.follower.setPose(RED_START);
         }
 
     }
@@ -81,11 +82,6 @@ public class Teleop extends OpMode {
     public void loop() {
         robot.periodic();
         Scheduler.execute(); // runs anything scheduled — nothing's scheduled yet, but it's plugged in and ready
-
-        if(gamepad1.dpadDownWasPressed())
-        {
-            robot.follower.setPose(Start);
-        }
 
         robot.launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
 
@@ -104,7 +100,7 @@ public class Teleop extends OpMode {
 
             if (otherSide){
                 dx = goalPose[0] - robot.follower.pose().x();
-                dy = goalPose[1] - OTHERSIDE - robot.follower.pose().y();
+                dy = goalPose[1] - OTHERSIDE  - robot.follower.pose().y();
             }else{
                 dx = goalPose[0] - robot.follower.pose().x();
                 dy = goalPose[1] - robot.follower.pose().y();
@@ -114,16 +110,16 @@ public class Teleop extends OpMode {
             double headingVelFF = denom > 1e-6
                     ? (dx * robot.follower.velocity().vy - dy * robot.follower.velocity().vx) / denom
                     : 0;
-            double tolerance = Math.toRadians(1.5);
-
             distanceToGoal = Math.hypot(dx, dy);
             headingError = normalizeAngle(Math.atan2(dy, dx) + Math.PI - robot.follower.pose().heading());
-            turnPower = headingController.calculate(0, headingError) + kV * headingVelFF;
-            if (Math.abs(headingError) < tolerance) {
+            headingError = normalizeAngle(Math.atan2(dy, dx) + Math.PI - robot.follower.pose().heading());
+            if (Math.abs(headingError) < Math.toRadians(1)) {
                 turnPower = 0;
+            } else {
+                turnPower = headingController.calculate(0, headingError) + kV * headingVelFF;
             }
         }else {
-            turnPower = -gamepad1.right_stick_x;
+            turnPower = gamepad1.right_stick_x;
         }
 
         // Field-centric drive
@@ -158,7 +154,6 @@ public class Teleop extends OpMode {
             robot.rightIntakeServo.setPower(INTAKE_FORWARD);
         } else if (reverseOn) {
             robot.intake.setPower(INTAKE_REVERSE);
-            robot.windmillServo.setPower(INTAKE_REVERSE);
             robot.leftIntakeServo.setPower(INTAKE_REVERSE);
             robot.rightIntakeServo.setPower(INTAKE_REVERSE);
         } else {
