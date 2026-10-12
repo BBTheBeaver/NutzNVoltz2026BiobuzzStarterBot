@@ -25,7 +25,7 @@ public class Teleop extends OpMode {
     double[] goalPose = GOAL_POSE_BLUE;
 
     private final PIDController headingController =
-            new PIDController(2.5, 0.0, 0.1);
+            new PIDController(2, 0.0, 0.1);
 
     boolean intakeOn = false;
     boolean reverseOn = false;
@@ -82,6 +82,11 @@ public class Teleop extends OpMode {
         robot.periodic();
         Scheduler.execute(); // runs anything scheduled — nothing's scheduled yet, but it's plugged in and ready
 
+        if(gamepad1.dpadDownWasPressed())
+        {
+            robot.follower.setPose(Start);
+        }
+
         robot.launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
 
 
@@ -109,9 +114,14 @@ public class Teleop extends OpMode {
             double headingVelFF = denom > 1e-6
                     ? (dx * robot.follower.velocity().vy - dy * robot.follower.velocity().vx) / denom
                     : 0;
+            double tolerance = Math.toRadians(1.5);
+
             distanceToGoal = Math.hypot(dx, dy);
             headingError = normalizeAngle(Math.atan2(dy, dx) + Math.PI - robot.follower.pose().heading());
             turnPower = headingController.calculate(0, headingError) + kV * headingVelFF;
+            if (Math.abs(headingError) < tolerance) {
+                turnPower = 0;
+            }
         }else {
             turnPower = -gamepad1.right_stick_x;
         }
