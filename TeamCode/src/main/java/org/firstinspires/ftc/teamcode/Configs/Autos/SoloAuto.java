@@ -73,7 +73,7 @@ public class SoloAuto implements AutoRoutine {
 
                         follow(robot.follower, PARK())
                 ),
-                SpinFlywheel.create(flywheel, robot)
+                SpinFlywheel.create(flywheel)
         );
     }
 

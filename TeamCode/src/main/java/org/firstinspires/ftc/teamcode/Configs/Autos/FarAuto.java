@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Configs.Autos;
 
 import static com.pedropathing.api.Paths.*;
 import static com.pedropathing.ivy.commands.Commands.waitMs;
+import static com.pedropathing.ivy.groups.Groups.deadline;
 import static com.pedropathing.ivy.groups.Groups.parallel;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
@@ -14,6 +15,7 @@ import com.pedropathing.paths.Path;
 
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.SetIntake;
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.Shoot;
+import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.SpinFlywheel;
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.SubSystems.Flywheel;
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.SubSystems.Intake;
 import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
@@ -40,22 +42,24 @@ public class FarAuto implements AutoRoutine{
     public Command build(Robot robot) {
         Flywheel flywheel = new Flywheel(robot.launcher);
         Intake intake = new Intake(robot.intake);
+        return deadline(
+             sequential(
 
-        return sequential(
+                    waitMs(6000),
+                    Shoot.create(flywheel, robot),
 
-                waitMs(6000),
-                Shoot.create(flywheel, robot),
+                    parallel(
+                            SetIntake.create(intake, robot, false),
+                            follow(robot.follower, FLOWER())
 
-                parallel(
-                        SetIntake.create(intake, robot, false),
-                        follow(robot.follower, FLOWER())
+                    ),
 
-                ),
+                     follow(robot.follower, SHOOT()),
+                    Shoot.create(flywheel, robot),
 
-                Shoot.create(flywheel, robot),
-                follow(robot.follower, SHOOT()),
-
-                follow(robot.follower, PARK())
+                    follow(robot.follower, PARK())
+            ),
+            SpinFlywheel.create(flywheel)
         );
     }
 

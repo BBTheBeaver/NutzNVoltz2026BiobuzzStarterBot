@@ -34,13 +34,14 @@ public class Poses {
 
 
     // Far red sequence start
+    // the sthoot isn't right path
     public static final Pose FAR_START = poseFactory.of(64.3425, 132.5812, 90);
 
     // Far red sequence
     public static final Pose FAR_FLOWER = poseFactory.of(51.2623, 130.1269, 90);
     public static final Pose FAR_FLOWERCURVE = poseFactory.of(58.9226, 121.4925, 0);
-    public static final Pose FAR_SHOOT = poseFactory.of(7.2547, 104.4241, 360);
+    public static final Pose FAR_SHOOT = poseFactory.of(64.3425, 132.5812, 90);
     public static final Pose FAR_SHOOTCURVE = poseFactory.of(58.9226, 121.4925, 0);
-    public static final Pose FAR_PARK = poseFactory.of(10.592, 120.4429, 360);
-    public static final Pose FAR_PARKCURVE = poseFactory.of(35.4472, 110.134, 0);
+    public static final Pose FAR_PARK = poseFactory.of(7.2547, 104.4241, 360);
+    public static final Pose FAR_PARKCURVE = poseFactory.of(7.2547, 110.134, 0);
 }

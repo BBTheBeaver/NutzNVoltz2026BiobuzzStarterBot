@@ -8,7 +8,7 @@ import com.pedropathing.ivy.Command;
 import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.SubSystems.Flywheel;
 public class SpinFlywheel {
-    public static Command create(Flywheel flywheel, Robot robot) {
+    public static Command create(Flywheel flywheel) {
         return sequential(
                 instant(flywheel::spinUp)
         );

@@ -20,7 +20,7 @@ public class Shoot {
                     robot.intake.setPower(INTAKE_FORWARD);
                 }),
 
-                waitMs(2000),
+                waitMs(6700),
 
                 instant(() -> {
                     robot.windmillServo.setPower(0);
