@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.pedro.PedroConstants;
 
@@ -25,9 +26,12 @@ public class Robot {
     //hardware
     public final DcMotorEx launcher;
     public final DcMotor intake;
-    public final CRServo leftIntakeServo;
-    public final CRServo rightIntakeServo;
+    //public final CRServo leftIntakeServo;
+    //public final CRServo rightIntakeServo;
     public final CRServo windmillServo;
+
+    public final Servo right_flower;
+    public final Servo left_flower;
 
 
 
@@ -57,8 +61,11 @@ public class Robot {
         intake = hw.get(DcMotor.class, "intake");
         launcher = hw.get(DcMotorEx.class, "launcher");
         windmillServo = hw.get(CRServo.class, "windmillServo");
-        leftIntakeServo = hw.get(CRServo.class, "left_intake_servo");
-        rightIntakeServo = hw.get(CRServo.class, "right_intake_servo");
+        //leftIntakeServo = hw.get(CRServo.class, "left_intake_servo");
+        //rightIntakeServo = hw.get(CRServo.class, "right_intake_servo");
+
+        right_flower = hw.get(Servo.class, "right_flower");
+        left_flower = hw.get(Servo.class, "left_flower");
 
 
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -66,12 +73,15 @@ public class Robot {
         launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(40, 0, 0, 12.5));
 
-        leftIntakeServo.setPower(0);
-        rightIntakeServo.setPower(0);
+        //leftIntakeServo.setPower(0);
+        //rightIntakeServo.setPower(0);
         windmillServo.setPower(0);
 
-        rightIntakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftIntakeServo.setDirection(DcMotorSimple.Direction.REVERSE);
+        //right_flower.setPosition(0/300.0);
+        //left_flower.setPosition(0/300.0);
+
+        //rightIntakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
+        //leftIntakeServo.setDirection(DcMotorSimple.Direction.REVERSE);
         // -----------------------------------------
 
         loop.reset();

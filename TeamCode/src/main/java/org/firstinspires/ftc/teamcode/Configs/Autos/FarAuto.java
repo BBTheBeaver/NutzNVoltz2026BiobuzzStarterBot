@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Configs.Autos;
 
 import static com.pedropathing.api.Paths.*;
+import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.groups.Groups.parallel;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
@@ -41,6 +42,8 @@ public class FarAuto implements AutoRoutine{
         Intake intake = new Intake(robot.intake);
 
         return sequential(
+
+                waitMs(6000),
                 Shoot.create(flywheel, robot),
 
                 parallel(

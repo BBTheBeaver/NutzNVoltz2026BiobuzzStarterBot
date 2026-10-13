@@ -17,21 +17,21 @@ public class SetIntake {
                 instant(() -> {
                     if (reverse) {
                         intake.turnOnReverse();
-                        robot.leftIntakeServo.setPower(1);
-                        robot.rightIntakeServo.setPower(1);
+                        //robot.leftIntakeServo.setPower(1);
+                        //robot.rightIntakeServo.setPower(1);
                     } else {
                         intake.turnOn();
                         intake.turnOnReverse();
-                        robot.leftIntakeServo.setPower(-1);
-                        robot.rightIntakeServo.setPower(-1);
+                        //.leftIntakeServo.setPower(-1);
+                        //.rightIntakeServo.setPower(-1);
                     }
                 }),
 
                 waitMs(500),
                 instant(() -> {
                     robot.intake.setPower(0);
-                    robot.leftIntakeServo.setPower(0);
-                    robot.rightIntakeServo.setPower(0);
+                    //robot.leftIntakeServo.setPower(0);
+                    //robot.rightIntakeServo.setPower(0);
                 })
         );
     }

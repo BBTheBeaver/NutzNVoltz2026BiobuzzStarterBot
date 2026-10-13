@@ -30,6 +30,9 @@ public class Teleop extends OpMode {
     boolean intakeOn = false;
     boolean reverseOn = false;
 
+    boolean left_flower = false;
+    boolean right_flower = false;
+
 
 
     final String[] options = {"Blue", "Red"};
@@ -150,16 +153,36 @@ public class Teleop extends OpMode {
 
         if (intakeOn) {
             robot.intake.setPower(INTAKE_FORWARD);
-            robot.leftIntakeServo.setPower(INTAKE_FORWARD);
-            robot.rightIntakeServo.setPower(INTAKE_FORWARD);
+            //robot.leftIntakeServo.setPower(INTAKE_FORWARD);
+            //robot.rightIntakeServo.setPower(INTAKE_FORWARD);
         } else if (reverseOn) {
             robot.intake.setPower(INTAKE_REVERSE);
-            robot.leftIntakeServo.setPower(INTAKE_REVERSE);
-            robot.rightIntakeServo.setPower(INTAKE_REVERSE);
+            //robot.leftIntakeServo.setPower(INTAKE_REVERSE);
+            //robot.rightIntakeServo.setPower(INTAKE_REVERSE);
         } else {
             robot.intake.setPower(0);
-            robot.leftIntakeServo.setPower(0);
-            robot.rightIntakeServo.setPower(0);
+            //robot.leftIntakeServo.setPower(0);
+            //robot.rightIntakeServo.setPower(0);
+        }
+
+        if(gamepad1.leftTriggerWasPressed()){
+            left_flower = !left_flower;
+        }
+        if(gamepad1.rightTriggerWasPressed())
+        {
+            right_flower = !right_flower;
+        }
+
+        if(left_flower){
+            robot.left_flower.setPosition(90/300.0);
+        } else if (!left_flower) {
+            robot.left_flower.setPosition(0/300.0);
+        }
+
+        if(right_flower){
+            robot.right_flower.setPosition(90/300.0);
+        } else if (!right_flower) {
+            robot.right_flower.setPosition(0/300.0);
         }
 
 

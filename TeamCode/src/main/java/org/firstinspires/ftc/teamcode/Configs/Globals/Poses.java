@@ -8,8 +8,8 @@ public class Poses {
     private static final PoseFactory poseFactory = PoseFactory.degrees();
 
     //Test start for heading lock
-    public static final Pose BLUE_START = poseFactory.of(0, 0, 0);
-    public static final Pose RED_START = poseFactory.of(140, 0, 0);
+    public static final Pose BLUE_START = poseFactory.of(0, 0, 90);
+    public static final Pose RED_START = poseFactory.of(140, 0, 90);
 
     // Solo sequence start
     public static final Pose SOLO_START = poseFactory.of(56.6, 9, 270);
