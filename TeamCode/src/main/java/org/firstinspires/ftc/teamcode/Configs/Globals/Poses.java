@@ -20,11 +20,11 @@ public class Poses {
     public static final Pose SOLO_INTAKECURVE = poseFactory.of(40.8476, 17.6552, 0);
     public static final Pose SOLO_SHOOT = poseFactory.of(59.9528, 125.3071, 90);
     public static final Pose SOLO_SHOOTCURVE = poseFactory.of(22.5162, 101.7857, 0);
-    public static final Pose SOLO_FLOWER = poseFactory.of(50.1925, 129.9114, 90);
+    public static final Pose SOLO_FLOWER = poseFactory.of(47.52264150943397, 129.64436910377353, 90);
     public static final Pose SOLO_FLOWERCURVE = poseFactory.of(54.6604, 124.4476, 0);
     public static final Pose SOLO_SHOOT2 = poseFactory.of(59.9528, 125.3071, 90);
     public static final Pose SOLO_SHOOT2CURVE = poseFactory.of(54.6604, 124.4476, 0);
-    public static final Pose SOLO_FLOWER2 = poseFactory.of(11.5033, 50.8005, 180);
+    public static final Pose SOLO_FLOWER2 = poseFactory.of(11.770283018867925, 47.86367924528303, 180);
     public static final Pose SOLO_FLOWER2CURVE1 = poseFactory.of(19.8127, 96.1901, 0);
     public static final Pose SOLO_FLOWER2CURVE2 = poseFactory.of(21.225, 29.0443, 0);
     public static final Pose SOLO_SHOOT3 = poseFactory.of(56.6, 9, 270);
@@ -34,14 +34,13 @@ public class Poses {
 
 
     // Far red sequence start
-    // the sthoot isn't right path
     public static final Pose FAR_START = poseFactory.of(64.3425, 132.5812, 90);
 
     // Far red sequence
-    public static final Pose FAR_FLOWER = poseFactory.of(51.2623, 130.1269, 90);
+    public static final Pose FAR_FLOWER = poseFactory.of(46.85707547169811, 130.1268867924528, 90);
     public static final Pose FAR_FLOWERCURVE = poseFactory.of(58.9226, 121.4925, 0);
     public static final Pose FAR_SHOOT = poseFactory.of(64.3425, 132.5812, 90);
     public static final Pose FAR_SHOOTCURVE = poseFactory.of(58.9226, 121.4925, 0);
-    public static final Pose FAR_PARK = poseFactory.of(7.2547, 104.4241, 360);
-    public static final Pose FAR_PARKCURVE = poseFactory.of(7.2547, 110.134, 0);
+    public static final Pose FAR_PARK = poseFactory.of(10.592, 120.4429, 360);
+    public static final Pose FAR_PARKCURVE = poseFactory.of(35.4472, 110.134, 0);
 }

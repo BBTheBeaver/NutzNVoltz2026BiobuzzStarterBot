@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Configs.Autos;
 
 import static com.pedropathing.api.Paths.*;
+import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.groups.Groups.deadline;
 import static com.pedropathing.ivy.groups.Groups.parallel;
 import static com.pedropathing.ivy.groups.Groups.sequential;
@@ -13,10 +14,12 @@ import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
 
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.SetIntake;
+import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.SetRamp;
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.Shoot;
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.SpinFlywheel;
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.SubSystems.Flywheel;
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.SubSystems.Intake;
+import org.firstinspires.ftc.teamcode.Configs.CommandBase.SubSystems.Ramp;
 import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
 
 public class SoloAuto implements AutoRoutine {
@@ -43,9 +46,12 @@ public class SoloAuto implements AutoRoutine {
     public Command build(Robot robot) {
         Flywheel flywheel = new Flywheel(robot.launcher);
         Intake intake = new Intake(robot.intake);
+        Ramp ramp = new Ramp(robot.right_flower, robot.right_flower)
 
         return deadline(
                 sequential(
+                        waitMs(500),
+
                         Shoot.create(flywheel, robot),
                         parallel(
                                 SetIntake.create(intake, robot, false),
@@ -56,21 +62,33 @@ public class SoloAuto implements AutoRoutine {
                         Shoot.create(flywheel, robot),
 
                         parallel(
+                                SetRamp.create(ramp, robot, false),
                                 SetIntake.create(intake, robot, false),
                                 follow(robot.follower, FLOWER())
+                        ),
+
+                        parallel(
+                                SetRamp.create(ramp, robot, true),
+                                follow(robot.follower, SHOOT2())
                         ),
 
                         follow(robot.follower, SHOOT2()),
                         Shoot.create(flywheel, robot),
 
+
                         parallel(
+                                SetRamp.create(ramp, robot, false),
                                 SetIntake.create(intake, robot, false),
                                 follow(robot.follower, FLOWER2())
                         ),
 
-                        follow(robot.follower, SHOOT3()),
-                        Shoot.create(flywheel, robot),
 
+                        parallel(
+                                SetRamp.create(ramp, robot, true),
+                                follow(robot.follower, SHOOT3())
+                        ),
+
+                        Shoot.create(flywheel, robot),
                         follow(robot.follower, PARK())
                 ),
                 SpinFlywheel.create(flywheel)

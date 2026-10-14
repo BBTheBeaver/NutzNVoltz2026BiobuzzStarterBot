@@ -14,10 +14,12 @@ import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
 
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.SetIntake;
+import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.SetRamp;
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.Shoot;
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.SpinFlywheel;
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.SubSystems.Flywheel;
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.SubSystems.Intake;
+import org.firstinspires.ftc.teamcode.Configs.CommandBase.SubSystems.Ramp;
 import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
 
 public class FarAuto implements AutoRoutine{
@@ -42,6 +44,7 @@ public class FarAuto implements AutoRoutine{
     public Command build(Robot robot) {
         Flywheel flywheel = new Flywheel(robot.launcher);
         Intake intake = new Intake(robot.intake);
+        Ramp ramp = new Ramp(robot.right_flower, robot.left_flower);
         return deadline(
              sequential(
 
@@ -49,12 +52,17 @@ public class FarAuto implements AutoRoutine{
                     Shoot.create(flywheel, robot),
 
                     parallel(
+                            SetRamp.create(ramp, robot, false),
                             SetIntake.create(intake, robot, false),
                             follow(robot.follower, FLOWER())
 
                     ),
 
-                     follow(robot.follower, SHOOT()),
+                    parallel(
+                            SetRamp.create(ramp, robot, true),
+                            follow(robot.follower, SHOOT())
+                    ),
+
                     Shoot.create(flywheel, robot),
 
                     follow(robot.follower, PARK())

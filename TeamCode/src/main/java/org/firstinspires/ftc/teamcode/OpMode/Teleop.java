@@ -165,24 +165,21 @@ public class Teleop extends OpMode {
             //robot.rightIntakeServo.setPower(0);
         }
 
-        if(gamepad1.leftTriggerWasPressed()){
+        if(gamepad1.rightStickButtonWasPressed()){
             left_flower = !left_flower;
-        }
-        if(gamepad1.rightTriggerWasPressed())
-        {
             right_flower = !right_flower;
         }
 
         if(left_flower){
-            robot.left_flower.setPosition(90/300.0);
+            robot.left_flower.setPosition(FLOWER_RAMP_UP);
         } else if (!left_flower) {
-            robot.left_flower.setPosition(0/300.0);
+            robot.left_flower.setPosition(FLOWER_RAMP_DOWN);
         }
 
         if(right_flower){
-            robot.right_flower.setPosition(90/300.0);
+            robot.right_flower.setPosition(FLOWER_RAMP_UP);
         } else if (!right_flower) {
-            robot.right_flower.setPosition(0/300.0);
+            robot.right_flower.setPosition(FLOWER_RAMP_DOWN);
         }
 
 
