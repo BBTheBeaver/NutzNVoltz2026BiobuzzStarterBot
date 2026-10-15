@@ -46,7 +46,7 @@ public class SoloAuto implements AutoRoutine {
     public Command build(Robot robot) {
         Flywheel flywheel = new Flywheel(robot.launcher);
         Intake intake = new Intake(robot.intake);
-        Ramp ramp = new Ramp(robot.right_flower, robot.right_flower)
+        Ramp ramp = new Ramp(robot.right_flower, robot.right_flower);
 
         return deadline(
                 sequential(
