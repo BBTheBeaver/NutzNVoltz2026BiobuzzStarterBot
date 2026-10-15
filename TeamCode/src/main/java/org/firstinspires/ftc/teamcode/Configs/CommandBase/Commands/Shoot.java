@@ -16,11 +16,11 @@ public class Shoot {
     public static Command create(Flywheel flywheel, Robot robot) {
         return sequential(
                 instant(() -> {
-                    robot.windmillServo.setPower(1);
+                    robot.windmillServo.setPower(0.8);
                     robot.intake.setPower(INTAKE_FORWARD);
                 }),
 
-                waitMs(6700),
+                waitMs(5700),
 
                 instant(() -> {
                     robot.windmillServo.setPower(0);
