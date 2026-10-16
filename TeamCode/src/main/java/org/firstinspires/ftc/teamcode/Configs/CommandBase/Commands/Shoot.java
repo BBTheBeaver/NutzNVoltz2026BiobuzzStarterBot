@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Configs.CommandBase.SubSystems.Flywheel;
 
 public class Shoot {
 
-    public static Command create(Flywheel flywheel, Robot robot) {
+    public static Command create(Robot robot) {
         return sequential(
                 instant(() -> {
                     robot.windmillServo.setPower(0.5);

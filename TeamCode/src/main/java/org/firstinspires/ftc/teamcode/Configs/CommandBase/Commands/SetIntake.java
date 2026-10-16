@@ -21,13 +21,13 @@ public class SetIntake {
                         //robot.rightIntakeServo.setPower(1);
                     } else {
                         intake.turnOn();
-                        intake.turnOnReverse();
                         //.leftIntakeServo.setPower(-1);
                         //.rightIntakeServo.setPower(-1);
                     }
                 }),
 
-                waitMs(500),
+                waitMs(2000),
+
                 instant(() -> {
                     robot.intake.setPower(0);
                     //robot.leftIntakeServo.setPower(0);
