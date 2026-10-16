@@ -96,7 +96,7 @@ public class SoloAuto implements AutoRoutine {
     }
 
     private Path INTAKE() {
-        return curve(m(SOLO_INTAKE_START), m(SOLO_INTAKECURVE), m(SOLO_INTAKE)).linear(m(SOLO_INTAKE_START), m(SOLO_INTAKE));
+        return curve(m(SOLO_INTAKE_START), m(SOLO_INTAKECURVE), m(SOLO_INTAKECURVE2), m(SOLO_INTAKE)).linear(m(SOLO_INTAKE_START), m(SOLO_INTAKE));
     }
 
     private Path SHOOT() {
