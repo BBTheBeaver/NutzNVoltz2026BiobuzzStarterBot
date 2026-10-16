@@ -12,10 +12,10 @@ public class Poses {
     public static final Pose RED_START = poseFactory.of(140, 0, 90);
 
     // Solo sequence start
-    public static final Pose SOLO_START = poseFactory.of(56.6, 9, 270);
+    public static final Pose SOLO_START = poseFactory.of(62, 9, 270);
 
     // Solo red sequence
-    public static final Pose SOLO_INTAKE_START = poseFactory.of(56.6, 9, 270);
+    public static final Pose SOLO_INTAKE_START = poseFactory.of(62, 9, 270);
     public static final Pose SOLO_INTAKE = poseFactory.of(13, 10, 180);
     public static final Pose SOLO_INTAKECURVE = poseFactory.of(40.8476, 17.6552, 0);
     public static final Pose SOLO_SHOOT = poseFactory.of(59.9528, 125.3071, 90);
@@ -42,5 +42,5 @@ public class Poses {
     public static final Pose FAR_SHOOT = poseFactory.of(64.3425, 132.5812, 90);
     public static final Pose FAR_SHOOTCURVE = poseFactory.of(58.9226, 121.4925, 0);
     public static final Pose FAR_PARK = poseFactory.of(8, 120.4429, 360);
-    public static final Pose FAR_PARKCURVE = poseFactory.of(35.4472, 110.134, 0);
+    public static final Pose FAR_PARKCURVE = poseFactory.of(42.490186425339374, 102.7315233785822, 0);
 }
