@@ -26,7 +26,8 @@ public class SetIntake {
                     }
                 }),
 
-                waitMs(3000),
+                waitMs(2000),
+
                 instant(() -> {
                     robot.intake.setPower(0);
                     //robot.leftIntakeServo.setPower(0);

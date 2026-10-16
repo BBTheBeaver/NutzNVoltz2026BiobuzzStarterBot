@@ -52,14 +52,14 @@ public class SoloAuto implements AutoRoutine {
                 sequential(
                         waitMs(1000),
 
-                        Shoot.create(flywheel, robot),
+                        Shoot.create(robot),
                         parallel(
                                 SetIntake.create(intake, robot, false),
                                 follow(robot.follower, INTAKE())
                         ),
 
                         follow(robot.follower, SHOOT()),
-                        Shoot.create(flywheel, robot),
+                        Shoot.create(robot),
 
                         parallel(
                                 SetRamp.create(ramp, robot, false),
@@ -73,7 +73,7 @@ public class SoloAuto implements AutoRoutine {
                         ),
 
                         follow(robot.follower, SHOOT2()),
-                        Shoot.create(flywheel, robot),
+                        Shoot.create(robot),
 
 
                         parallel(
@@ -88,7 +88,7 @@ public class SoloAuto implements AutoRoutine {
                                 follow(robot.follower, SHOOT3())
                         ),
 
-                        Shoot.create(flywheel, robot),
+                        Shoot.create(robot),
                         follow(robot.follower, PARK())
                 ),
                 SpinFlywheel.create(flywheel)
@@ -96,7 +96,7 @@ public class SoloAuto implements AutoRoutine {
     }
 
     private Path INTAKE() {
-        return curve(m(SOLO_INTAKE_START), m(SOLO_INTAKECURVE), m(SOLO_INTAKE)).linear(m(SOLO_INTAKE_START), m(SOLO_INTAKE));
+        return curve(m(SOLO_INTAKE_START), m(SOLO_INTAKECURVE), m(SOLO_INTAKECURVE2), m(SOLO_INTAKE)).linear(m(SOLO_INTAKE_START), m(SOLO_INTAKE));
     }
 
     private Path SHOOT() {

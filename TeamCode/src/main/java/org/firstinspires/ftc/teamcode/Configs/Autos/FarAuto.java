@@ -49,7 +49,7 @@ public class FarAuto implements AutoRoutine{
              sequential(
 
                     waitMs(6000),
-                    Shoot.create(flywheel, robot),
+                    Shoot.create(robot),
 
                     parallel(
                             SetRamp.create(ramp, robot, false),
@@ -63,7 +63,7 @@ public class FarAuto implements AutoRoutine{
                             follow(robot.follower, SHOOT())
                     ),
 
-                    Shoot.create(flywheel, robot),
+                    Shoot.create(robot),
 
                     follow(robot.follower, PARK())
             ),
