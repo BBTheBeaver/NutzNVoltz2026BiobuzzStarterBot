@@ -50,7 +50,7 @@ public class SoloAuto implements AutoRoutine {
 
         return deadline(
                 sequential(
-                        waitMs(500),
+                        waitMs(1000),
 
                         Shoot.create(robot),
                         parallel(
