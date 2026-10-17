@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Configs.Autos.FarAuto;
 
 import java.util.Objects;
 
-@Autonomous(name = "Main Auto", group = "Autos")
+@Autonomous(name = "Auto", group = "Autos")
 public class Auto extends OpMode {
 
     private Robot robot;

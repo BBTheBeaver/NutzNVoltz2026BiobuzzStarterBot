@@ -34,8 +34,8 @@ public class PedroConstants {
     public static PinpointConfig localizerConfig = new PinpointConfig(c -> {
         c.name.set("pinpoint");
         c.podType.set(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-        c.xPodOffset.set(4.345440902109222);
-        c.yPodOffset.set(-2.760773606187715);
+        c.xPodOffset.set(-2.7095815703624813);
+        c.yPodOffset.set(-5.911289725716658);
         c.xPodDirection.set(GoBildaPinpointDriver.EncoderDirection.FORWARD);
         c.yPodDirection.set(GoBildaPinpointDriver.EncoderDirection.REVERSED);
         c.globalDistanceUnit.set(DistanceUnit.INCH);

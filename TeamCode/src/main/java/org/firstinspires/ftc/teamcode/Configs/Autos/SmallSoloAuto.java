@@ -8,13 +8,21 @@ import static com.pedropathing.ivy.groups.Groups.parallel;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.FAR_START;
-import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.*;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_FLOWER;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_FLOWERCURVE;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_INTAKE;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_INTAKECURVE1;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_INTAKECURVE2;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_PARK;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_PARKCURVE;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_SHOOT;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_SHOOTCURVE;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_START;
 
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
-import com.pedropathing.paths.interpolator.Interpolator;
 
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.SetIntake;
 import org.firstinspires.ftc.teamcode.Configs.CommandBase.Commands.SetRamp;
@@ -50,7 +58,7 @@ public class SmallSoloAuto implements AutoRoutine {
 
         return deadline(
                 sequential(
-                        waitMs(1000),
+                        waitMs(3000),
                         Shoot.create(robot),
                         parallel(
                                 SetIntake.create(intake, robot, false),
@@ -67,7 +75,6 @@ public class SmallSoloAuto implements AutoRoutine {
                                 follow(robot.follower, FLOWER())
                         ),
 
-                        Shoot.create(robot),
                         follow(robot.follower, PARK())
 
                 ),
@@ -76,7 +83,7 @@ public class SmallSoloAuto implements AutoRoutine {
     }
 
     private Path INTAKE() {
-        return curve(m(SMALL_SOLO_START), m(SMALL_SOLO_INTAKECURVE1), m(SMALL_SOLO_INTAKECURVE2), m(SMALL_SOLO_INTAKE)).heading(Interpolator.piecewise().until(0.6856, Interpolator.linear(SMALL_SOLO_INTAKE_SEGMENT1_START, SMALL_SOLO_INTAKE_SEGMENT1_END)).until(1, Interpolator.linear(SMALL_SOLO_INTAKE_SEGMENT2_START, SMALL_SOLO_INTAKE_SEGMENT2_END)));
+        return curve(m(SMALL_SOLO_START), m(SMALL_SOLO_INTAKECURVE1), m(SMALL_SOLO_INTAKECURVE2), m(SMALL_SOLO_INTAKE)).linear(m(SMALL_SOLO_START), m(SMALL_SOLO_INTAKE));
     }
 
     private Path SHOOT() {
