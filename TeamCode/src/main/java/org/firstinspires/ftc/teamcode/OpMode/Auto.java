@@ -4,6 +4,7 @@ import com.pedropathing.ivy.Scheduler;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.Configs.Autos.SmallSoloAuto;
 import org.firstinspires.ftc.teamcode.Configs.Autos.SoloAuto;
 import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
 import org.firstinspires.ftc.teamcode.Configs.Autos.AutoRoutine;
@@ -21,13 +22,15 @@ public class Auto extends OpMode {
     int selectedOption_Alliance = 0;
     private final AutoRoutine[] red_autos = {
             new SoloAuto(false),
-            new FarAuto(false)
+            new FarAuto(false),
+            new SmallSoloAuto(false)
             // Add more autos here
     };
 
     private final AutoRoutine[] blue_auto = {
             new SoloAuto(true),
-            new FarAuto(true)
+            new FarAuto(true),
+            new SmallSoloAuto(true)
     };
 
     private int selectedIndex = 0;

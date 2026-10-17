@@ -35,9 +35,14 @@ public class Poses {
     public static final Pose SMALL_SOLO_START = poseFactory.of(56.6, 10, 90);
 
     //Small solo sequence
+    // Small solo sequence
     public static final Pose SMALL_SOLO_INTAKE = poseFactory.of(9, 10, 180);
-    public static final Pose SMALL_SOLO_INTAKECURVE1 = poseFactory.of(40.8476, 17.6552, 0);
-    public static final Pose SMALL_SOLO_INTAKECURVE2 = poseFactory.of(39.9137, 13.6411, 0);
+    public static final Pose SMALL_SOLO_INTAKECURVE1 = poseFactory.of(54.7306, 27.667, 0);
+    public static final Pose SMALL_SOLO_INTAKECURVE2 = poseFactory.of(42.717, 7.2335, 0);
+    public static final Pose SMALL_SOLO_INTAKE_SEGMENT1_START = poseFactory.of(56.6, 10, 90);
+    public static final Pose SMALL_SOLO_INTAKE_SEGMENT1_END   = poseFactory.of(9, 10, 180);
+    public static final Pose SMALL_SOLO_INTAKE_SEGMENT2_START = poseFactory.of(9, 10, 180);
+    public static final Pose SMALL_SOLO_INTAKE_SEGMENT2_END   = poseFactory.of(9, 10, 180);
     public static final Pose SMALL_SOLO_SHOOT = poseFactory.of(56.6, 10, 90);
     public static final Pose SMALL_SOLO_SHOOTCURVE = poseFactory.of(48.8075, 29.5943, 0);
     public static final Pose SMALL_SOLO_FLOWER = poseFactory.of(13.1962, 47.6698, 180);
