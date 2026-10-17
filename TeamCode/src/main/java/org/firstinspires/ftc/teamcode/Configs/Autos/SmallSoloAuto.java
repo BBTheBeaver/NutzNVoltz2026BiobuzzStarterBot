@@ -13,6 +13,7 @@ import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_FL
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_INTAKE;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_INTAKECURVE1;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_INTAKECURVE2;
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_PARK;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_PARKCURVE;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_SHOOT;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_SHOOTCURVE;
@@ -57,7 +58,7 @@ public class SmallSoloAuto implements AutoRoutine {
 
         return deadline(
                 sequential(
-                        waitMs(1000),
+                        waitMs(3000),
                         Shoot.create(robot),
                         parallel(
                                 SetIntake.create(intake, robot, false),
@@ -74,7 +75,6 @@ public class SmallSoloAuto implements AutoRoutine {
                                 follow(robot.follower, FLOWER())
                         ),
 
-                        Shoot.create(robot),
                         follow(robot.follower, PARK())
 
                 ),
@@ -95,7 +95,7 @@ public class SmallSoloAuto implements AutoRoutine {
     }
 
     private Path PARK() {
-        return line(m(SMALL_SOLO_FLOWER), m(SMALL_SOLO_PARKCURVE)).linear(m(SMALL_SOLO_FLOWER), m(SMALL_SOLO_INTAKE));
+        return line(m(SMALL_SOLO_FLOWER), m(SMALL_SOLO_PARKCURVE)).linear(m(SMALL_SOLO_PARK), m(SMALL_SOLO_INTAKE));
     }
 }
 

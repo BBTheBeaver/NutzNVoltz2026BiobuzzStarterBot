@@ -32,17 +32,17 @@ public class Poses {
     public static final Pose SOLO_PARK = poseFactory.of(9.8939, 92.3844, 180);
 
     //Small solo sequence start
-    public static final Pose SMALL_SOLO_START = poseFactory.of(56.6, 10, 90);
+    public static final Pose SMALL_SOLO_START = poseFactory.of(56.6, 10, 270);
 
     //Small solo sequence
     public static final Pose SMALL_SOLO_INTAKE = poseFactory.of(9, 10, 180);
     public static final Pose SMALL_SOLO_INTAKECURVE1 = poseFactory.of(40.8476, 17.6552, 0);
     public static final Pose SMALL_SOLO_INTAKECURVE2 = poseFactory.of(39.9137, 13.6411, 0);
-    public static final Pose SMALL_SOLO_SHOOT = poseFactory.of(56.6, 10, 90);
+    public static final Pose SMALL_SOLO_SHOOT = poseFactory.of(56.6, 10, 270);
     public static final Pose SMALL_SOLO_SHOOTCURVE = poseFactory.of(48.8075, 29.5943, 0);
     public static final Pose SMALL_SOLO_FLOWER = poseFactory.of(13.1962, 47.6698, 180);
     public static final Pose SMALL_SOLO_FLOWERCURVE = poseFactory.of(29.9019, 47.9481, 0);
-    public static final Pose SMALL_SOLO_PARK = poseFactory.of(12.0142, 92.4005, 0);
+    public static final Pose SMALL_SOLO_PARK = poseFactory.of(12.0142, 92.4005, 90);
     public static final Pose SMALL_SOLO_PARKCURVE = poseFactory.of(35.5453, 70.5222, 0);
 
 

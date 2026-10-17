@@ -157,6 +157,7 @@ public class Teleop extends OpMode {
             //robot.rightIntakeServo.setPower(INTAKE_FORWARD);
         } else if (reverseOn) {
             robot.intake.setPower(INTAKE_REVERSE);
+            robot.windmillServo.setPower(INTAKE_REVERSE);
             //robot.leftIntakeServo.setPower(INTAKE_REVERSE);
             //robot.rightIntakeServo.setPower(INTAKE_REVERSE);
         } else {
