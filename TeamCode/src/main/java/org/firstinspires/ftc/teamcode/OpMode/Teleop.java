@@ -89,6 +89,13 @@ public class Teleop extends OpMode {
         robot.launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
 
 
+        if (robot.follower.pose().y() > 75) {
+            goalPose[1] = 97.0;
+        } else {
+            goalPose[1] = 47.0;
+        }
+
+
         if (gamepad1.rightTriggerWasPressed()){
             otherSide = !otherSide;
         }
@@ -101,13 +108,9 @@ public class Teleop extends OpMode {
             double dx;
             double dy;
 
-            if (otherSide){
-                dx = goalPose[0] - robot.follower.pose().x();
-                dy = goalPose[1] - OTHERSIDE  - robot.follower.pose().y();
-            }else{
-                dx = goalPose[0] - robot.follower.pose().x();
-                dy = goalPose[1] - robot.follower.pose().y();
-            }
+            dx = goalPose[0] - robot.follower.pose().x();
+            dy = goalPose[1] - robot.follower.pose().y();
+
             double kV = -0.75; // start here, tune sign/magnitude by watching behavior while strafing
             double denom = dx * dx + dy * dy;
             double headingVelFF = denom > 1e-6
