@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Configs.Globals;
 
 
+import static org.firstinspires.ftc.teamcode.Configs.Globals.Constants.FLOWER_RAMP_UP;
+
 import com.pedropathing.follower.Follower;
 import com.pedropathing.utils.Timer;
 import com.qualcomm.hardware.lynx.LynxModule;
@@ -81,8 +83,8 @@ public class Robot {
 
 
 
-        right_flower.setPosition(0);
-        left_flower.setPosition(0);
+        right_flower.setPosition(FLOWER_RAMP_UP);
+        left_flower.setPosition(FLOWER_RAMP_UP);
 
         //rightIntakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
         //leftIntakeServo.setDirection(DcMotorSimple.Direction.REVERSE);
