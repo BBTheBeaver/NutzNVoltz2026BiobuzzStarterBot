@@ -16,11 +16,9 @@ public class SetRamp {
         return sequential(
                 instant(() -> {
                     if (up) {
-                        robot.right_flower.setPosition(FLOWER_RAMP_UP);
-                        robot.left_flower.setPosition(FLOWER_RAMP_UP);
+                        ramp.setUp();
                     } else {
-                        robot.right_flower.setPosition(FLOWER_RAMP_DOWN);
-                        robot.left_flower.setPosition(FLOWER_RAMP_DOWN);
+                        ramp.setDown();
                     }
                 })
         );

@@ -77,10 +77,12 @@ public class Robot {
         //rightIntakeServo.setPower(0);
         windmillServo.setPower(0);
 
+        left_flower.setDirection(Servo.Direction.REVERSE);
 
 
-        right_flower.setPosition(0/300.0);
-        left_flower.setPosition(0/300.0);
+
+        right_flower.setPosition(0);
+        left_flower.setPosition(0);
 
         //rightIntakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
         //leftIntakeServo.setDirection(DcMotorSimple.Direction.REVERSE);

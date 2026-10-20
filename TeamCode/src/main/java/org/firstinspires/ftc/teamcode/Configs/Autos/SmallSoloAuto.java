@@ -95,7 +95,7 @@ public class SmallSoloAuto implements AutoRoutine {
     }
 
     private Path PARK() {
-        return line(m(SMALL_SOLO_FLOWER), m(SMALL_SOLO_PARKCURVE)).linear(m(SMALL_SOLO_PARK), m(SMALL_SOLO_INTAKE));
+        return curve(m(SMALL_SOLO_FLOWER), m(SMALL_SOLO_PARKCURVE), m(SMALL_SOLO_PARK)).linear(m(SMALL_SOLO_FLOWER), m(SMALL_SOLO_PARK));
     }
 }
 
