@@ -17,7 +17,6 @@ public class Shoot {
         return sequential(
                 instant(() -> {
                     robot.windmillServo.setPower(0.5);
-                    robot.intake.setPower(INTAKE_FORWARD);
                 }),
 
                 waitMs(5000),

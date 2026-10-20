@@ -52,14 +52,14 @@ public class FarAuto implements AutoRoutine{
                     Shoot.create(robot),
 
                     parallel(
-                            SetRamp.create(ramp, robot, false),
+                            SetRamp.down(ramp),
                             SetIntake.create(intake, robot, false),
                             follow(robot.follower, FLOWER())
 
                     ),
 
                     parallel(
-                            SetRamp.create(ramp, robot, true),
+                            SetRamp.up(ramp),
                             follow(robot.follower, SHOOT())
                     ),
 

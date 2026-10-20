@@ -12,18 +12,15 @@ import org.firstinspires.ftc.teamcode.Configs.CommandBase.SubSystems.Ramp;
 import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
 
 public class SetRamp {
-    public static Command create(Ramp ramp, Robot robot, boolean up) {
+    public static Command up(Ramp ramp) {
         return sequential(
-                instant(() -> {
-                    if (up) {
-                        robot.right_flower.setPosition(FLOWER_RAMP_UP);
-                        robot.left_flower.setPosition(FLOWER_RAMP_UP);
-                    } else {
-                        robot.right_flower.setPosition(FLOWER_RAMP_DOWN);
-                        robot.left_flower.setPosition(FLOWER_RAMP_DOWN);
-                    }
-                })
+                instant(ramp::setUp)
         );
 
+    }
+    public static Command down(Ramp ramp){
+        return sequential(
+                instant(ramp::setDown)
+        );
     }
 }

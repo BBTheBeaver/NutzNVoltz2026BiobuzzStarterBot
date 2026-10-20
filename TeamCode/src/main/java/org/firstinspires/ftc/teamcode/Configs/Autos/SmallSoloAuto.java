@@ -10,9 +10,6 @@ import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.FAR_START;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_FLOWER;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_FLOWERCURVE;
-import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_INTAKE;
-import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_INTAKECURVE1;
-import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_INTAKECURVE2;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_PARK;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_PARKCURVE;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.SMALL_SOLO_SHOOT;
@@ -54,26 +51,31 @@ public class SmallSoloAuto implements AutoRoutine {
     public Command build(Robot robot) {
         Flywheel flywheel = new Flywheel(robot.launcher);
         Intake intake = new Intake(robot.intake);
-        Ramp ramp = new Ramp(robot.right_flower, robot.right_flower);
+        Ramp ramp = new Ramp(robot.right_flower, robot.left_flower);
 
         return deadline(
                 sequential(
                         waitMs(3000),
                         Shoot.create(robot),
-                        parallel(
-                                SetIntake.create(intake, robot, false),
-                                follow(robot.follower, INTAKE())
 
+
+
+                        parallel(
+                                SetRamp.down(ramp),
+                                SetIntake.create(intake, robot, false),
+                                follow(robot.follower, FLOWER()),
+                                waitMs(6000)
                         ),
 
-                        follow(robot.follower, SHOOT()),
+
+                        parallel(
+                                follow(robot.follower, SHOOT()),
+                                SetRamp.up(ramp)
+                        ),
+
+
+
                         Shoot.create(robot),
-
-                        parallel(
-                                SetRamp.create(ramp, robot, false),
-                                SetIntake.create(intake, robot, false),
-                                follow(robot.follower, FLOWER())
-                        ),
 
                         follow(robot.follower, PARK())
 
@@ -82,20 +84,20 @@ public class SmallSoloAuto implements AutoRoutine {
         );
     }
 
-    private Path INTAKE() {
-        return curve(m(SMALL_SOLO_START), m(SMALL_SOLO_INTAKECURVE1), m(SMALL_SOLO_INTAKECURVE2), m(SMALL_SOLO_INTAKE)).linear(m(SMALL_SOLO_START), m(SMALL_SOLO_INTAKE));
-    }
-
-    private Path SHOOT() {
-        return curve(m(SMALL_SOLO_INTAKE), m(SMALL_SOLO_SHOOTCURVE), m(SMALL_SOLO_SHOOT)).linear(m(SMALL_SOLO_INTAKE), m(SMALL_SOLO_SHOOT));
-    }
-
+    //private Path INTAKE() {
+    //    return curve(m(SMALL_SOLO_START), m(SMALL_SOLO_INTAKECURVE1), m(SMALL_SOLO_INTAKECURVE2), m(SMALL_SOLO_INTAKE)).linear(m(SMALL_SOLO_START), m(SMALL_SOLO_INTAKE));
+    //}
     private Path FLOWER() {
-        return curve(m(SMALL_SOLO_SHOOT), m(SMALL_SOLO_FLOWERCURVE), m(SMALL_SOLO_FLOWER)).linear(m(SMALL_SOLO_SHOOT), m(SMALL_SOLO_FLOWER));
+        return curve(m(SMALL_SOLO_SHOOT), m(SMALL_SOLO_FLOWERCURVE), m(SMALL_SOLO_FLOWER)).linear(m(SMALL_SOLO_START), m(SMALL_SOLO_FLOWER));
     }
+    private Path SHOOT() {
+        return curve(m(SMALL_SOLO_FLOWER), m(SMALL_SOLO_SHOOTCURVE), m(SMALL_SOLO_SHOOT)).linear(m(SMALL_SOLO_FLOWER), m(SMALL_SOLO_SHOOT));
+    }
+
+
 
     private Path PARK() {
-        return line(m(SMALL_SOLO_FLOWER), m(SMALL_SOLO_PARKCURVE)).linear(m(SMALL_SOLO_PARK), m(SMALL_SOLO_INTAKE));
+        return curve(m(SMALL_SOLO_SHOOT), m(SMALL_SOLO_PARKCURVE), m(SMALL_SOLO_PARK)).linear(m(SMALL_SOLO_SHOOT), m(SMALL_SOLO_PARK));
     }
 }
 
