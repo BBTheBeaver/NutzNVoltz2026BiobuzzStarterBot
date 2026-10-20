@@ -33,6 +33,8 @@ public class Teleop extends OpMode {
     boolean left_flower = false;
     boolean right_flower = false;
 
+    boolean isBlue;
+
 
 
     final String[] options = {"Blue", "Red"};
@@ -70,13 +72,11 @@ public class Teleop extends OpMode {
 
     @Override
     public void start() {
-        boolean isBlue = Objects.equals(options[selectedOption], "Blue");
+        isBlue = Objects.equals(options[selectedOption], "Blue");
         if (isBlue) {
             goalPose = GOAL_POSE_BLUE;
-            robot.follower.setPose(BLUE_START);
         } else {
             goalPose = GOAL_POSE_RED;
-            robot.follower.setPose(RED_START);
         }
 
     }
@@ -87,6 +87,15 @@ public class Teleop extends OpMode {
         Scheduler.execute(); // runs anything scheduled — nothing's scheduled yet, but it's plugged in and ready
 
         robot.launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
+
+        if(gamepad2.dpad_down){
+            if(isBlue){
+                robot.follower.setPose(BLUE_RESET);
+            }
+            else{
+                robot.follower.setPose(RED_RESET);
+            }
+        }
 
 
         if (robot.follower.pose().y() > 75) {

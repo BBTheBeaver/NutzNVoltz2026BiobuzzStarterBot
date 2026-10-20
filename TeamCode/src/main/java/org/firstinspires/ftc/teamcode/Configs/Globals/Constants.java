@@ -14,7 +14,4 @@ public class Constants {
 
     public static final double FLOWER_RAMP_UP = 90.0/300.0;
     public static final double FLOWER_RAMP_DOWN = 0.0/300.0;
-
-    public static double OTHERSIDE;
-
 }
