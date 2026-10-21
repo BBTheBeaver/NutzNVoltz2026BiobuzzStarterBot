@@ -16,7 +16,7 @@ public class Shoot {
     public static Command create(Robot robot) {
         return sequential(
                 instant(() -> {
-                    robot.windmillServo.setPower(0.5);
+                    robot.windmillServo.setPower(1);
                 }),
 
                 waitMs(5000),

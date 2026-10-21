@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Configs.Autos;
 
 import static com.pedropathing.api.Paths.*;
+import static com.pedropathing.ivy.commands.Commands.instant;
 import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.groups.Groups.deadline;
 import static com.pedropathing.ivy.groups.Groups.parallel;
@@ -48,7 +49,7 @@ public class FarAuto implements AutoRoutine{
         return deadline(
              sequential(
 
-                    waitMs(6000),
+                    waitMs(3000),
                     Shoot.create(robot),
 
                     parallel(
@@ -57,6 +58,11 @@ public class FarAuto implements AutoRoutine{
                             follow(robot.follower, FLOWER())
 
                     ),
+
+                     instant(intake::turnOn),
+                     waitMs(2000),
+                     instant(intake::stop),
+
 
                     parallel(
                             SetRamp.up(ramp),

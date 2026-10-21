@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Configs.Autos;
 
 import static com.pedropathing.api.Paths.curve;
 import static com.pedropathing.api.Paths.line;
+import static com.pedropathing.ivy.commands.Commands.instant;
 import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.groups.Groups.deadline;
 import static com.pedropathing.ivy.groups.Groups.parallel;
@@ -63,15 +64,19 @@ public class SmallSoloAuto implements AutoRoutine {
                         parallel(
                                 SetRamp.down(ramp),
                                 SetIntake.create(intake, robot, false),
-                                follow(robot.follower, FLOWER()),
-                                waitMs(6000)
+                                follow(robot.follower, FLOWER())
                         ),
+
+                        instant(intake::turnOn),
+                        waitMs(2000),
+                        instant(intake::stop),
 
 
                         parallel(
                                 follow(robot.follower, SHOOT()),
                                 SetRamp.up(ramp)
                         ),
+
 
 
 
