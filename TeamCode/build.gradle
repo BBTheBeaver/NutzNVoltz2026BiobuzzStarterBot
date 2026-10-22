@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+//apply plugin: 'com.android.application'
 
 //
 // build.gradle in TeamCode
@@ -13,10 +13,30 @@ apply plugin: 'com.android.application'
 // Custom definitions may go here
 
 // Include common definitions from above.
-apply from: '../build.common.gradle'
+/*apply from: '../build.common.gradle'
 apply from: '../build.dependencies.gradle'
-apply plugin: 'dev.frozenmilk.sinister.sloth.load'
 
+android {
+    namespace = 'org.firstinspires.ftc.teamcode'
+
+    packagingOptions {
+        jniLibs.useLegacyPackaging true
+    }
+}
+
+dependencies {
+    implementation project(':FtcRobotController')
+}*/
+
+
+// Sloth's Load plugin, which enables hot reloading code onto the robot without a full
+// reinstall. The plugin version must match the dev.frozenmilk.sinister:Sloth library version
+// declared in build.dependencies.gradle.
+
+
+// Sloth's Load plugin, which enables hot reloading code onto the robot without a full
+// reinstall. The plugin version must match the dev.frozenmilk.sinister:Sloth library version
+// declared in build.dependencies.gradle.
 buildscript {
     repositories {
         mavenCentral()
@@ -30,6 +50,16 @@ buildscript {
     }
 }
 
+apply plugin: 'com.android.application'
+
+// Custom definitions may go here
+
+// Include common definitions from above.
+apply from: '../build.common.gradle'
+apply from: '../build.dependencies.gradle'
+
+apply plugin: 'dev.frozenmilk.sinister.sloth.load'
+
 android {
     namespace = 'org.firstinspires.ftc.teamcode'
 
@@ -40,5 +70,4 @@ android {
 
 dependencies {
     implementation project(':FtcRobotController')
-    implementation("dev.frozenmilk.sinister:Sloth:0.3.2")
 }
