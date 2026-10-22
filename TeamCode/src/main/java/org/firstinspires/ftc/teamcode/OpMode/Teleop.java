@@ -184,15 +184,15 @@ public class Teleop extends OpMode {
         }
 
         if(left_flower){
-            robot.left_flower.setPosition(FLOWER_RAMP_UP);
-        } else if (!left_flower) {
             robot.left_flower.setPosition(FLOWER_RAMP_DOWN);
+        } else if (!left_flower) {
+            robot.left_flower.setPosition(FLOWER_RAMP_UP);
         }
 
         if(right_flower){
-            robot.right_flower.setPosition(FLOWER_RAMP_UP);
-        } else if (!right_flower) {
             robot.right_flower.setPosition(FLOWER_RAMP_DOWN);
+        } else if (!right_flower) {
+            robot.right_flower.setPosition(FLOWER_RAMP_UP);
         }
 
 
@@ -205,6 +205,8 @@ public class Teleop extends OpMode {
         }
 
         // Telemetry
+        telemetry.addData("X Pose: ", robot.follower.pose().x());
+        telemetry.addData("Y Pose: ", robot.follower.pose().y());
         telemetry.addData("Triggers", "left (%.2f), right (%.2f)", gamepad1.left_trigger, gamepad1.right_trigger);
         telemetry.addData("Heading", "%.1f°", Math.toDegrees(robot.follower.pose().heading()));
         telemetry.addData("Loop Hz", robot.getLoopTimeHz());
