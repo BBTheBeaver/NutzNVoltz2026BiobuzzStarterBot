@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Configs.Autos.SoloAuto;
 import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
 import org.firstinspires.ftc.teamcode.Configs.Autos.AutoRoutine;
 import org.firstinspires.ftc.teamcode.Configs.Autos.FarAuto;
+import org.firstinspires.ftc.teamcode.Configs.Globals.PoseStorage;
 
 import java.util.Objects;
 
@@ -43,6 +44,7 @@ public class Auto extends OpMode {
     @Override
     public void init() {
         robot = new Robot(hardwareMap);
+        PoseStorage.lastAutoPose = null;
         Scheduler.reset();
         selectedAuto = red_autos[selectedIndex];
     }
@@ -115,5 +117,14 @@ public class Auto extends OpMode {
     public void loop() {
         robot.periodic();
         Scheduler.execute();
+
+        PoseStorage.save(robot.follower.pose());
+    }
+
+    @Override
+    public void stop() {
+        if (robot != null) {
+            PoseStorage.save(robot.follower.pose());
+        }
     }
 }

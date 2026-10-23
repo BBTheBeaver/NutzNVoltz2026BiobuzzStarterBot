@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.pedropathing.controllers.PIDController;
 
 import org.firstinspires.ftc.teamcode.Configs.Globals.Robot;
+import org.firstinspires.ftc.teamcode.Configs.Globals.PoseStorage;
 
 import java.util.Objects;
 
@@ -77,6 +78,10 @@ public class Teleop extends OpMode {
             goalPose = GOAL_POSE_BLUE;
         } else {
             goalPose = GOAL_POSE_RED;
+        }
+
+        if (PoseStorage.lastAutoPose != null) {
+            robot.follower.setPose(PoseStorage.lastAutoPose);
         }
 
     }
