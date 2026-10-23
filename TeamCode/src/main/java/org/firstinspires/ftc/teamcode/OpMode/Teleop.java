@@ -38,7 +38,7 @@ public class Teleop extends OpMode {
 
 
 
-    final String[] options = {"Blue", "Red"};
+    final String[] options = {"Red", "Blue"};
     int selectedOption = 0;
     boolean upLast = false;
     boolean downLast = false;
@@ -139,7 +139,7 @@ public class Teleop extends OpMode {
                 turnPower = headingController.calculate(0, headingError) + kV * headingVelFF;
             }
         }else {
-            turnPower = gamepad1.right_stick_x;
+            turnPower = -gamepad1.right_stick_x;
         }
 
         // Field-centric drive
