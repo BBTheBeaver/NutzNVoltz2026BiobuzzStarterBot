@@ -189,15 +189,15 @@ public class Teleop extends OpMode {
         }
 
         if(left_flower){
-            robot.left_flower.setPosition(FLOWER_RAMP_DOWN);
-        } else if (!left_flower) {
             robot.left_flower.setPosition(FLOWER_RAMP_UP);
+        } else if (!left_flower) {
+            robot.left_flower.setPosition(FLOWER_RAMP_DOWN);
         }
 
         if(right_flower){
-            robot.right_flower.setPosition(FLOWER_RAMP_DOWN);
-        } else if (!right_flower) {
             robot.right_flower.setPosition(FLOWER_RAMP_UP);
+        } else if (!right_flower) {
+            robot.right_flower.setPosition(FLOWER_RAMP_DOWN);
         }
 
 

@@ -37,23 +37,23 @@ public class Poses {
     //Small solo sequence
     public static final Pose SMALL_SOLO_FLOWER = poseFactory.of(17.0675, 47.4028, 180);
     public static final Pose SMALL_SOLO_FLOWERCURVE = poseFactory.of(29.9019, 47.9481, 0);
-    public static final Pose SMALL_SOLO_SHOOT = poseFactory.of(56.6, 10, 270);
-    public static final Pose SMALL_SOLO_SHOOTCURVE = poseFactory.of(48.8075, 29.5943, 0);
-    public static final Pose SMALL_SOLO_PARK = poseFactory.of(12.0142, 92.4005, 0);
-    public static final Pose SMALL_SOLO_PARKCURVE = poseFactory.of(9.6976, 59.3839, 0);
+    public static final Pose SMALL_SOLO_SHOOT = poseFactory.of(61.6726, 131.6099, 90);
+    public static final Pose SMALL_SOLO_SHOOTCURVE = poseFactory.of(11.1632, 85.9273, 0);
+    public static final Pose SMALL_SOLO_PARK = poseFactory.of(12.0142, 92.4, 0);
+    public static final Pose SMALL_SOLO_PARKCURVE = poseFactory.of(19.4424, 84.8806, 0);
 
 
 
 
 
     // Far red sequence start
-    public static final Pose FAR_START = poseFactory.of(64.3425, 131.7, 90);
+    public static final Pose FAR_START = poseFactory.of(61.5, 132.5812, 90);
 
     // Far red sequence
-    public static final Pose FAR_FLOWER = poseFactory.of(46.9906, 127.0566, 90);
+    public static final Pose FAR_FLOWER = poseFactory.of(47.5245, 127.0566, 90);
     public static final Pose FAR_FLOWERCURVE = poseFactory.of(58.9226, 121.4925, 0);
-    public static final Pose FAR_SHOOT = poseFactory.of(64.3425, 131.7, 90);
+    public static final Pose FAR_SHOOT = poseFactory.of(61.5, 132.5812, 90);
     public static final Pose FAR_SHOOTCURVE = poseFactory.of(58.9226, 121.4925, 0);
-    public static final Pose FAR_PARK = poseFactory.of(10.592, 120.4429, 360);
-    public static final Pose FAR_PARKCURVE = poseFactory.of(43.0561, 105.4618, 0);
+    public static final Pose FAR_PARK = poseFactory.of(14.0627, 120.5764, 360);
+    public static final Pose FAR_PARKCURVE = poseFactory.of(37.583, 97.5858, 0);
 }
