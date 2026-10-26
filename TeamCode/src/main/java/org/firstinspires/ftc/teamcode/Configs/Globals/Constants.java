@@ -9,8 +9,8 @@ public class Constants {
 
     // ─── Goal pose [x_inches, y_inches] (Pedro field coords) ─────────────────
     // Blue alliance default — mirrored for Red in TeleOp initialize()
-    public static double[] GOAL_POSE_BLUE = {88.0,  47.0};//-50 For the other side
-    public static double[] GOAL_POSE_RED  = {61, 47.0};//-50 for the other side
+    public static double[] GOAL_POSE_BLUE = {84.0,  47.0};//-50 For the other side
+    public static double[] GOAL_POSE_RED  = {58.0, 47.0};//-50 for the other side
 
     public static final double FLOWER_RAMP_UP = 1;
     public static final double FLOWER_RAMP_DOWN = 0;
