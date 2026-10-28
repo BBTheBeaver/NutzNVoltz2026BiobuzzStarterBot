@@ -7,6 +7,7 @@ import static com.pedropathing.ivy.groups.Groups.deadline;
 import static com.pedropathing.ivy.groups.Groups.parallel;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
+import static com.pedropathing.paths.interpolator.Interpolator.linear;
 import static org.firstinspires.ftc.teamcode.Configs.Globals.Poses.*;
 
 import com.pedropathing.api.PoseFactory;
@@ -49,14 +50,21 @@ public class FarAuto implements AutoRoutine{
         return deadline(
              sequential(
 
-                    waitMs(3000),
+                    waitMs(10000),
                     Shoot.create(robot),
 
                     parallel(
-                            SetRamp.down(ramp),
                             SetIntake.create(intake, robot, false),
                             follow(robot.follower, FLOWER())
+                    ),
 
+                    parallel(
+                            SetIntake.create(intake, robot, false),
+                            follow(robot.follower, ATFLOWER()),
+                            sequential(
+                                    waitMs(500),
+                                    SetRamp.down(ramp)
+                            )
                     ),
 
                      instant(intake::turnOn),
@@ -65,7 +73,10 @@ public class FarAuto implements AutoRoutine{
 
 
                     parallel(
-                            SetRamp.up(ramp),
+                            sequential(
+                                    waitMs(200),
+                                    SetRamp.up(ramp)
+                            ),
                             follow(robot.follower, SHOOT())
                     ),
 
@@ -79,6 +90,10 @@ public class FarAuto implements AutoRoutine{
 
     private Path FLOWER(){
         return curve(m(FAR_START), m(FAR_FLOWERCURVE), m(FAR_FLOWER)).linear(m(FAR_START), m(FAR_FLOWER));
+    }
+
+    private Path ATFLOWER(){
+        return line(m(FAR_FLOWER), m(FAR_ATFLOWER)).linear(m(FAR_FLOWER), m(FAR_ATFLOWER));
     }
 
     private Path SHOOT(){
