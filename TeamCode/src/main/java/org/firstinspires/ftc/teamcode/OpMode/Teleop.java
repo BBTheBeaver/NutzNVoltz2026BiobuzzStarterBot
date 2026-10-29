@@ -31,8 +31,8 @@ public class Teleop extends OpMode {
     boolean intakeOn = false;
     boolean reverseOn = false;
 
-    boolean left_flower = false;
-    boolean right_flower = false;
+    boolean flower = false;
+    boolean flower_down = false;
 
     boolean isBlue;
 
@@ -184,20 +184,13 @@ public class Teleop extends OpMode {
         }
 
         if(gamepad1.rightStickButtonWasPressed()){
-            left_flower = !left_flower;
-            right_flower = !right_flower;
+            flower = !flower;
         }
 
-        if(left_flower){
-            robot.left_flower.setPosition(FLOWER_RAMP_UP);
-        } else if (!left_flower) {
-            robot.left_flower.setPosition(FLOWER_RAMP_DOWN);
-        }
-
-        if(right_flower){
-            robot.right_flower.setPosition(FLOWER_RAMP_UP);
-        } else if (!right_flower) {
-            robot.right_flower.setPosition(FLOWER_RAMP_DOWN);
+        if(flower && !flower_down){
+            robot.flower.setPosition(FLOWER_RAMP_DOWN);
+        } else if (!flower && flower_down) {
+            robot.flower.setPosition(FLOWER_RAMP_UP);
         }
 
 

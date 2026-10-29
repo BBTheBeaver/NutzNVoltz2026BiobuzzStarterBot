@@ -52,7 +52,7 @@ public class SmallSoloAuto implements AutoRoutine {
     public Command build(Robot robot) {
         Flywheel flywheel = new Flywheel(robot.launcher);
         Intake intake = new Intake(robot.intake);
-        Ramp ramp = new Ramp(robot.right_flower, robot.left_flower);
+        Ramp ramp = new Ramp(robot.flower);
 
         return deadline(
                 sequential(
@@ -62,9 +62,9 @@ public class SmallSoloAuto implements AutoRoutine {
 
 
                         parallel(
-                                SetRamp.down(ramp),
                                 SetIntake.create(intake, robot, false),
-                                follow(robot.follower, FLOWER())
+                                follow(robot.follower, FLOWER()),
+                                SetRamp.down(ramp)
                         ),
 
                         instant(intake::turnOn),
