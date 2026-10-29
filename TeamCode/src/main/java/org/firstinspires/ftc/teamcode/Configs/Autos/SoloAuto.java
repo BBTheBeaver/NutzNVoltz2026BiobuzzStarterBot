@@ -58,14 +58,12 @@ public class SoloAuto implements AutoRoutine {
                                 SetIntake.create(intake, robot, false),
                                 follow(robot.follower, FLOWER())
                         ),
+                        SetRamp.down(ramp),
 
                         parallel(
                                 SetIntake.create(intake, robot, false),
-                                follow(robot.follower, ATFLOWER()),
-                                sequential(
-                                        waitMs(500),
-                                        SetRamp.down(ramp)
-                                )
+                                follow(robot.follower, ATFLOWER())
+
                         ),
 
                         instant(intake::turnOn),

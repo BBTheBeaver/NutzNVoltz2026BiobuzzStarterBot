@@ -32,7 +32,8 @@ public class Robot {
     //public final CRServo rightIntakeServo;
     public final CRServo windmillServo;
 
-    public final Servo flower;
+    public final Servo right_flower;
+    public final Servo left_flower;
 
 
 
@@ -65,7 +66,8 @@ public class Robot {
         //leftIntakeServo = hw.get(CRServo.class, "left_intake_servo");
         //rightIntakeServo = hw.get(CRServo.class, "right_intake_servo");
 
-        flower = hw.get(Servo.class, "flower");
+        right_flower = hw.get(Servo.class, "right_flower");
+        left_flower = hw.get(Servo.class, "left_flower");
 
 
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -77,11 +79,12 @@ public class Robot {
         //rightIntakeServo.setPower(0);
         windmillServo.setPower(0);
 
+        left_flower.setDirection(Servo.Direction.REVERSE);
 
 
 
-
-        flower.setPosition(FLOWER_RAMP_UP);
+        right_flower.setPosition(FLOWER_RAMP_UP);
+        left_flower.setPosition(FLOWER_RAMP_UP);
 
         //rightIntakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
         //leftIntakeServo.setDirection(DcMotorSimple.Direction.REVERSE);

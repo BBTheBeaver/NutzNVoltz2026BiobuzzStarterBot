@@ -31,14 +31,14 @@ public class Teleop extends OpMode {
     boolean intakeOn = false;
     boolean reverseOn = false;
 
-    boolean flower = false;
-    boolean flower_down = false;
+    boolean left_flower = false;
+    boolean right_flower = false;
 
     boolean isBlue;
 
 
 
-    final String[] options = {"Red", "Blue"};
+    final String[] options = {"Blue", "Red"};
     int selectedOption = 0;
     boolean upLast = false;
     boolean downLast = false;
@@ -139,17 +139,18 @@ public class Teleop extends OpMode {
                 turnPower = headingController.calculate(0, headingError) + kV * headingVelFF;
             }
         }else {
-            turnPower = -gamepad1.right_stick_x;
+            turnPower = isBlue ? gamepad1.right_stick_x :- gamepad1.right_stick_x;
         }
+
+        double flip = isBlue ? 1 : -1;
 
         // Field-centric drive
         DrivePowers powers = ManualDrive.fieldCentric(
-                -gamepad1.left_stick_y,
-                -gamepad1.left_stick_x,
+                flip * gamepad1.left_stick_y,
+                flip * gamepad1.left_stick_x,
                 turnPower,
                 robot.follower.pose().heading()
         );
-
         robot.follower.manual(powers);
 
 
@@ -184,13 +185,20 @@ public class Teleop extends OpMode {
         }
 
         if(gamepad1.rightStickButtonWasPressed()){
-            flower = !flower;
+            left_flower = !left_flower;
+            right_flower = !right_flower;
         }
 
-        if(flower && !flower_down){
-            robot.flower.setPosition(FLOWER_RAMP_DOWN);
-        } else if (!flower && flower_down) {
-            robot.flower.setPosition(FLOWER_RAMP_UP);
+        if(left_flower){
+            robot.left_flower.setPosition(FLOWER_RAMP_DOWN);
+        } else if (!left_flower) {
+            robot.left_flower.setPosition(FLOWER_RAMP_UP);
+        }
+
+        if(right_flower){
+            robot.right_flower.setPosition(FLOWER_RAMP_DOWN);
+        } else if (!right_flower) {
+            robot.right_flower.setPosition(FLOWER_RAMP_UP);
         }
 
 
@@ -203,6 +211,7 @@ public class Teleop extends OpMode {
         }
 
         // Telemetry
+        telemetry.addData("Heading Error (deg)", Math.toDegrees(headingError));
         telemetry.addData("X Pose: ", robot.follower.pose().x());
         telemetry.addData("Y Pose: ", robot.follower.pose().y());
         telemetry.addData("Triggers", "left (%.2f), right (%.2f)", gamepad1.left_trigger, gamepad1.right_trigger);
