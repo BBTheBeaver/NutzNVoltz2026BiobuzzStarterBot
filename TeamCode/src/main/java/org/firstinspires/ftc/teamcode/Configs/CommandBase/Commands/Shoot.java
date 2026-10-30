@@ -19,12 +19,60 @@ public class Shoot {
                     robot.windmillServo.setPower(1);
                 }),
 
-                waitMs(5000),
+                waitMs(350),
+
+                instant(() -> {
+                    robot.windmillServo.setPower(0);
+                    robot.intake.setPower(0);
+                }),
+
+                waitMs(350),
+                instant(() -> {
+                    robot.windmillServo.setPower(1);
+                }),
+                waitMs(350),
+
+                instant(() -> {
+                    robot.windmillServo.setPower(0);
+                    robot.intake.setPower(0);
+                }),
+
+                waitMs(350),
+                instant(() -> {
+                    robot.windmillServo.setPower(1);
+                }),
+
+                waitMs(350),
+
+                instant(() -> {
+                    robot.windmillServo.setPower(0);
+                    robot.intake.setPower(0);
+                }),
+
+                waitMs(350),
+                instant(() -> {
+                    robot.windmillServo.setPower(1);
+                }),
+
+                waitMs(350),
+
+                instant(() -> {
+                    robot.windmillServo.setPower(0);
+                    robot.intake.setPower(0);
+                }),
+
+                waitMs(350),
+                instant(() -> {
+                    robot.windmillServo.setPower(1);
+                }),
+
+                waitMs(350),
 
                 instant(() -> {
                     robot.windmillServo.setPower(0);
                     robot.intake.setPower(0);
                 })
+
         );
     }
 }

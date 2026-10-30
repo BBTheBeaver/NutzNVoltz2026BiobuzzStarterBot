@@ -101,6 +101,7 @@ public class Auto extends OpMode {
             selectedAuto = red_autos[selectedIndex];
         }
 
+        telemetry.addData("Alliance ", options[selectedOption_Alliance]);
         telemetry.addData("Selected Auto", selectedAuto.getClass().getSimpleName());
         telemetry.addLine("D-pad up/down to select");
         telemetry.addLine("Press START to run");

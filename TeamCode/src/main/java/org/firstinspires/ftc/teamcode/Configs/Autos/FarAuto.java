@@ -58,13 +58,14 @@ public class FarAuto implements AutoRoutine{
                             follow(robot.follower, FLOWER())
                     ),
 
+                     instant(intake::turnOn),
+                     SetRamp.down(ramp),
+                     waitMs(500),
+
+
                     parallel(
                             SetIntake.create(intake, robot, false),
-                            follow(robot.follower, ATFLOWER()),
-                            sequential(
-                                    waitMs(500),
-                                    SetRamp.down(ramp)
-                            )
+                            follow(robot.follower, ATFLOWER())
                     ),
 
                      instant(intake::turnOn),
